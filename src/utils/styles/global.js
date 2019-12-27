@@ -30,6 +30,10 @@ export const GlobalStyle = createGlobalStyle`
       'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     color: ${props => props.theme.text};
     background-color: ${props => props.theme.bg};
+  }
+
+  body,
+  svg {
     transition: all 400ms ease;
   }
 
@@ -73,14 +77,4 @@ export const GlobalStyle = createGlobalStyle`
     padding: ${rem('20px')};
     max-width: ${rem('1280px')};
   }
-
-  /* Remove all animations and transitions for people that prefer not to see them */
-  /* @media (prefers-reduced-motion: reduce) {
-    * {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
-  } */
 `

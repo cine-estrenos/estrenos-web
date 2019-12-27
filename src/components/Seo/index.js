@@ -10,8 +10,8 @@ function SEO({ description, lang, meta, title }) {
         site {
           siteMetadata {
             title
-            description
             author
+            description
           }
         }
       }
@@ -22,11 +22,9 @@ function SEO({ description, lang, meta, title }) {
 
   return (
     <Helmet
-      htmlAttributes={{
-        lang,
-      }}
       title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
+      htmlAttributes={{ lang }}
+      titleTemplate={`${site.siteMetadata.title} | %s`}
       meta={[
         {
           name: `description`,
@@ -66,8 +64,8 @@ function SEO({ description, lang, meta, title }) {
 }
 
 SEO.defaultProps = {
-  lang: `en`,
   meta: [],
+  lang: `es`,
   description: ``,
 }
 

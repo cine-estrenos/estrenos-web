@@ -8,7 +8,8 @@ import { GlobalStyle } from 'utils/styles/global'
 import { darkTheme, lightTheme } from 'utils/styles/theme'
 
 // Components
-import Nav from './Nav'
+import Nav from 'components/Nav'
+import Footer from 'components/Footer'
 
 const Layout = ({ children }) => {
   const darkMode = useDarkMode(false)
@@ -18,13 +19,11 @@ const Layout = ({ children }) => {
       <GlobalStyle />
       <div className='container'>
         <Nav />
-        <button onClick={darkMode.toggle}>change</button>
+
+        {/* <button onClick={darkMode.toggle}>Toggle</button> */}
         <main>{children}</main>
-        {/* <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href='https://www.gatsbyjs.org'>Gatsby</a>
-        </footer> */}
+
+        <Footer />
       </div>
     </ThemeProvider>
   )

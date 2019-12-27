@@ -11,7 +11,7 @@ module.exports = {
   siteMetadata: {
     title: 'Estrenos Web',
     description: '-',
-    author: 'cine-estrenos team',
+    author: 'Leonardo Galante, Hugo Farji, Gonzalo Pozzo, Juan Gomez',
   },
   plugins: [
     'gatsby-plugin-react-helmet',
@@ -27,10 +27,10 @@ module.exports = {
         name: 'gatsby-starter-default',
         short_name: 'starter',
         start_url: '/',
-        background_color: '#663399',
-        theme_color: '#663399',
+        background_color: '#FFFFFF',
+        theme_color: '#FFFFFF',
         display: 'minimal-ui',
-        icon: 'src/images/gatsby-icon.png', // This path is relative to the root of the site.
+        icon: 'src/images/icon.png',
       },
     },
   ],
