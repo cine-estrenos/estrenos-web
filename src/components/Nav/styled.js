@@ -18,6 +18,11 @@ export const Container = styled.nav`
   h2 {
     font-size: ${rem('24px')};
     text-transform: uppercase;
+    margin-bottom: ${rem('16px')};
+
+    @media ${media.tablet} {
+      margin-bottom: 0;
+    }
   }
 
   .links-search {

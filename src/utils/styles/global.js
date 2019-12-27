@@ -22,13 +22,15 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     min-height: 100vh;
-    font-size: var(--font-size);
     overscroll-behavior: contain;
     text-rendering: optimizeLegibility;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, 'Apple Color Emoji',
       'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    color: ${props => props.theme.text};
+    background-color: ${props => props.theme.bg};
+    transition: all 400ms ease;
   }
 
   ul {
@@ -73,12 +75,12 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   /* Remove all animations and transitions for people that prefer not to see them */
-  @media (prefers-reduced-motion: reduce) {
+  /* @media (prefers-reduced-motion: reduce) {
     * {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
-  }
+  } */
 `

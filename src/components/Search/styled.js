@@ -20,6 +20,6 @@ export const Input = styled.input`
   background-color: ${props => props.theme.grey};
 
   ::placeholder {
-    color: ${rgba('#000', 0.3)};
+    color: ${props => rgba(props.theme.text, 0.3)};
   }
 `
