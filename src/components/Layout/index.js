@@ -12,7 +12,7 @@ import Nav from 'components/Nav'
 import Footer from 'components/Footer'
 
 const Layout = ({ children }) => {
-  const darkMode = useDarkMode(false)
+  const darkMode = useDarkMode(true)
 
   return (
     <ThemeProvider theme={darkMode.value ? darkTheme : lightTheme}>
@@ -20,7 +20,7 @@ const Layout = ({ children }) => {
       <div className='container'>
         <Nav />
 
-        {/* <button onClick={darkMode.toggle}>Toggle</button> */}
+        <button onClick={darkMode.toggle}>Toggle</button>
         <main>{children}</main>
 
         <Footer />
