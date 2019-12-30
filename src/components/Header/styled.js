@@ -51,7 +51,7 @@ export const Container = styled.header`
         margin-bottom: ${rem('56px')};
       }
 
-      &.mobile {
+      &.loader {
         height: ${rem('96px')};
       }
     }

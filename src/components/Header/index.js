@@ -70,7 +70,7 @@ const Header = () => {
             <Skeleton width={147} height={18} ariaLabel='Cargando género y puntuación...' />
           </div>
 
-          <p className={`description ${isTablet ? 'tablet' : 'mobile'}`}>
+          <p className={`description ${isTablet ? '' : 'loader'}`}>
             {isTablet ? (
               <Skeleton width={400} height={72} ariaLabel='Cargando descripción...' />
             ) : (
