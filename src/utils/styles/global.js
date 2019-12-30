@@ -30,10 +30,6 @@ export const GlobalStyle = createGlobalStyle`
       'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     color: ${props => props.theme.text};
     background-color: ${props => props.theme.bg};
-  }
-
-  body,
-  svg {
     transition: all 400ms ease;
   }
 

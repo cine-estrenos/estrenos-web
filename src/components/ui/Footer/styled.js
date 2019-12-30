@@ -51,6 +51,11 @@ export const Container = styled.footer`
     .media {
       display: flex;
 
+      .github,
+      .twitter {
+        transition: all 400ms ease;
+      }
+
       .github {
         width: 27px;
         margin-left: ${rem('20px')};
