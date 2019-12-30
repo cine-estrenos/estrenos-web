@@ -5,7 +5,6 @@
 import React, { useRef, useState } from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
-import useMedia from 'use-media';
 
 // Styled Components
 import { Container, Overlay } from './styled';
@@ -18,9 +17,6 @@ import { Skeleton, ResponsiveSkeleton } from 'components/ui/Skeletons';
 
 // Utils
 import { truncateUntilFirstDot } from 'utils/helpers';
-
-// Styles
-import { media } from 'utils/styles/media';
 
 const MOST_POPULAR_MOVIE = gql`
   {
@@ -40,29 +36,21 @@ const MOST_POPULAR_MOVIE = gql`
   }
 `;
 
-const Loader = ({ isTablet }) => (
+const Loader = ({ isTablet = true }) => (
   <Container>
     <article>
-      <Skeleton width={isTablet ? 240 : 85} height={isTablet ? 78 : 28} ariaLabel="Cargando título..." />
+      <Skeleton className="title-skeleton" ariaLabel="Cargando título..." />
 
       <div className="info loader">
-        <Skeleton width={147} height={18} ariaLabel="Cargando género y puntuación..." />
+        <Skeleton className="genre-skeleton" ariaLabel="Cargando género y puntuación..." />
       </div>
 
-      <p className={`description ${isTablet ? '' : 'loader'}`}>
-        {isTablet ? (
-          <Skeleton width={400} height={72} ariaLabel="Cargando descripción..." />
-        ) : (
-          <ResponsiveSkeleton ariaLabel="Cargando descripción..." />
-        )}
+      <p className="description">
+        <Skeleton className="description-skeleton" ariaLabel="Cargando descripción..." />
       </p>
 
       <div className="btn-container">
-        {isTablet ? (
-          <Skeleton width={164} height={57} ariaLabel="Cargando botón de compra..." />
-        ) : (
-          <ResponsiveSkeleton ariaLabel="Cargando botón de compra..." />
-        )}
+        <Skeleton className="btn-skeleton" ariaLabel="Cargando descripción..." />
       </div>
     </article>
 
@@ -74,8 +62,6 @@ const Loader = ({ isTablet }) => (
 
 const Header = () => {
   const videoRef = useRef();
-  const isTablet = useMedia(media.tablet);
-
   const [displayOverlay, setDisplayOverlay] = useState(true);
   const { data, loading: isLoading, error: hasError } = useQuery(MOST_POPULAR_MOVIE);
 
@@ -90,7 +76,7 @@ const Header = () => {
   };
 
   if (hasError) return <div>error!</div>;
-  if (isLoading) return <Loader isTablet={isTablet} />;
+  if (isLoading) return <Loader />;
 
   const [movie] = data.movies;
 
