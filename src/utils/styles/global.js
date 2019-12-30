@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components'
-import { rem } from 'polished'
+import { createGlobalStyle } from 'styled-components';
+import { rem } from 'polished';
 
 export const GlobalStyle = createGlobalStyle`
   *,
@@ -28,12 +28,8 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, 'Apple Color Emoji',
       'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    color: ${props => props.theme.text};
-    background-color: ${props => props.theme.bg};
-  }
-
-  body,
-  svg {
+    color: ${(props) => props.theme.text};
+    background-color: ${(props) => props.theme.bg};
     transition: all 400ms ease;
   }
 
@@ -74,7 +70,7 @@ export const GlobalStyle = createGlobalStyle`
   .container {
     width: 100%;
     margin: 0 auto;
-    padding: ${rem('20px')};
+    padding: 0 ${rem('20px')};
     max-width: ${rem('1280px')};
   }
-`
+`;

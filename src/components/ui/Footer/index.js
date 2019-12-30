@@ -1,29 +1,29 @@
-import React from 'react'
+import React from 'react';
 
 // Styled Components
-import { Container } from './styled'
+import { Container } from './styled';
 
 // Components
-import GitHub from 'components/Icons/GitHub'
-import Twitter from 'components/Icons/Twitter'
+import GitHub from 'components/ui/Icons/GitHub';
+import Twitter from 'components/ui/Icons/Twitter';
 
 const Footer = () => (
   <Container>
     <span>Estrenos © {new Date().getFullYear()} - Todos los derechos reservados.</span>
 
-    <div className='links-media'>
+    <div className="links-media">
       <ul>
         <li>Contacto</li>
         <li>Política de Privacidad</li>
         <li>Términos y Condiciones</li>
       </ul>
 
-      <div className='media'>
+      <div className="media">
         <Twitter />
         <GitHub />
       </div>
     </div>
   </Container>
-)
+);
 
-export default Footer
+export default Footer;

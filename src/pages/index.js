@@ -1,13 +1,15 @@
-import React from 'react'
+import React from 'react';
 
 // Components
-import Layout from 'components/Layout'
-import SEO from 'components/Seo'
+import SEO from 'components/ui/Seo';
+import Layout from 'components/ui/Layout';
+import Header from 'components/Header';
 
 const HomePage = () => (
   <Layout>
-    <SEO title='Home' />
+    <SEO title="Home" />
+    <Header />
   </Layout>
-)
+);
 
-export default HomePage
+export default HomePage;
