@@ -100,8 +100,11 @@ const Header = () => {
         <h2>{movie.title}</h2>
 
         <div className="info">
-          <span className="category">{movie.category.value} | </span>
-          <Rating votes={movie.votes} />
+          <span className="category">
+            {movie.category.value}
+            {movie.votes === '0' ? '' : ' | '}
+          </span>
+          {movie.votes !== '0' && <Rating votes={movie.votes} />}
         </div>
 
         <p className="description">{truncateUntilFirstDot(movie.description)}</p>
