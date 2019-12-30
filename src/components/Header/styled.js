@@ -94,6 +94,41 @@ export const Container = styled.header`
       object-fit: cover;
     }
   }
+
+  .title-skeleton {
+    width: 85px;
+    height: 28px;
+
+    @media ${media.tablet} {
+      width: 240px;
+      height: 78px;
+    }
+  }
+
+  .genre-skeleton {
+    width: 147px;
+    height: 18px;
+  }
+
+  .description-skeleton {
+    width: 100%;
+    height: 72px;
+
+    @media ${media.tablet} {
+      width: 400px;
+      height: 72px;
+    }
+  }
+
+  .btn-skeleton {
+    width: 100%;
+    height: 57px;
+
+    @media ${media.tablet} {
+      width: 164px;
+      height: 57px;
+    }
+  }
 `;
 
 export const Overlay = styled.div.attrs({ className: 'overlay' })`

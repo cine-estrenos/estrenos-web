@@ -6,6 +6,8 @@ export const Skeleton = styled(ContentLoader)`
   height: ${(props) => `${props.height}px`};
 
   rect {
+    width: 100%;
+    height: 100%;
     clip-path: none;
   }
 `;
