@@ -1,8 +1,8 @@
-import styled from 'styled-components'
-import { rem } from 'polished'
+import styled from 'styled-components';
+import { rem } from 'polished';
 
 // Styles
-import { media } from 'utils/styles/media'
+import { media } from 'utils/styles/media';
 
 export const Container = styled.nav`
   display: flex;
@@ -50,4 +50,4 @@ export const Container = styled.nav`
       }
     }
   }
-`
+`;

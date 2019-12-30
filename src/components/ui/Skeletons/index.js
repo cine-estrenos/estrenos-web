@@ -1,14 +1,14 @@
-import styled from 'styled-components'
-import ContentLoader from 'react-content-loader'
+import styled from 'styled-components';
+import ContentLoader from 'react-content-loader';
 
 export const Skeleton = styled(ContentLoader)`
-  width: ${props => `${props.width}px`};
-  height: ${props => `${props.height}px`};
+  width: ${(props) => `${props.width}px`};
+  height: ${(props) => `${props.height}px`};
 
   rect {
     clip-path: none;
   }
-`
+`;
 
 export const ResponsiveSkeleton = styled(ContentLoader)`
   width: 100%;
@@ -17,4 +17,4 @@ export const ResponsiveSkeleton = styled(ContentLoader)`
   rect {
     clip-path: none;
   }
-`
+`;

@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { rem } from 'polished'
+import styled from 'styled-components';
+import { rem } from 'polished';
 
 export const Container = styled.span`
   padding-top: ${rem('2.6px')};
@@ -8,4 +8,4 @@ export const Container = styled.span`
   svg {
     width: ${rem('15px')};
   }
-`
+`;

@@ -1,8 +1,8 @@
-import styled from 'styled-components'
-import { rem, rgba } from 'polished'
+import styled from 'styled-components';
+import { rem, rgba } from 'polished';
 
 // Styles
-import { media } from 'utils/styles/media'
+import { media } from 'utils/styles/media';
 
 export const Container = styled.header`
   display: grid;
@@ -70,7 +70,7 @@ export const Container = styled.header`
 
     &:hover {
       .overlay {
-        background: url(${props => props.image}) ${props => rgba(props.theme.text, 0.1)};
+        background: url(${(props) => props.image}) ${(props) => rgba(props.theme.text, 0.1)};
         background-size: cover;
 
         .play {
@@ -94,7 +94,7 @@ export const Container = styled.header`
       object-fit: cover;
     }
   }
-`
+`;
 
 export const Overlay = styled.div.attrs({ className: 'overlay' })`
   display: flex;
@@ -106,8 +106,8 @@ export const Overlay = styled.div.attrs({ className: 'overlay' })`
   cursor: pointer;
   transition: all 400ms ease;
 
-  ${props => (props.hidden ? `opacity: 0;` : null)};
-  background: url(${props => props.image}) ${props => rgba(props.theme.text, 0.2)};
+  ${(props) => (props.hidden ? `opacity: 0;` : null)};
+  background: url(${(props) => props.image}) ${(props) => rgba(props.theme.text, 0.2)};
   background-size: cover;
   background-blend-mode: color;
 
@@ -115,7 +115,7 @@ export const Overlay = styled.div.attrs({ className: 'overlay' })`
     width: ${rem('120px')};
     transition: all 400ms ease;
 
-    fill: ${props => rgba(props.theme.bg, 0.8)};
-    ${props => (props.hidden ? `width: ${rem('100px')}` : null)};
+    fill: ${(props) => rgba(props.theme.bg, 0.8)};
+    ${(props) => (props.hidden ? `width: ${rem('100px')}` : null)};
   }
-`
+`;

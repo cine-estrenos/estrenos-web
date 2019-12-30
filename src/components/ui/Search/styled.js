@@ -1,8 +1,8 @@
-import styled from 'styled-components'
-import { rem, rgba } from 'polished'
+import styled from 'styled-components';
+import { rem, rgba } from 'polished';
 
 // Styles
-import { media } from 'utils/styles/media'
+import { media } from 'utils/styles/media';
 
 export const Form = styled.form`
   display: flex;
@@ -10,7 +10,7 @@ export const Form = styled.form`
   @media ${media.tablet} {
     width: ${rem('290px')};
   }
-`
+`;
 
 export const Input = styled.input`
   all: unset;
@@ -20,10 +20,10 @@ export const Input = styled.input`
   padding: ${rem('18px')} ${rem('20px')};
 
   transition: all 400ms ease;
-  background-color: ${props => props.theme.grey};
+  background-color: ${(props) => props.theme.grey};
 
   ::placeholder {
     transition: all 400ms ease;
-    color: ${props => rgba(props.theme.text, 0.3)};
+    color: ${(props) => rgba(props.theme.text, 0.3)};
   }
-`
+`;
