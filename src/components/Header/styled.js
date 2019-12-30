@@ -66,7 +66,7 @@ export const Container = styled.header`
 
     &:hover {
       .overlay {
-        background: url(${props => props.image}) ${props => rgba(props.theme.text, 0.2)};
+        background: url(${props => props.image}) ${props => rgba(props.theme.text, 0.1)};
         background-size: cover;
 
         .play {
@@ -103,9 +103,9 @@ export const Overlay = styled.div.attrs({ className: 'overlay' })`
   transition: all 400ms ease;
 
   ${props => (props.hidden ? `opacity: 0;` : null)};
-  background: url(${props => props.image}) ${props => rgba(props.theme.text, 0.3)};
+  background: url(${props => props.image}) ${props => rgba(props.theme.text, 0.2)};
   background-size: cover;
-  background-blend-mode: multiply;
+  background-blend-mode: color;
 
   .play {
     width: ${rem('120px')};
