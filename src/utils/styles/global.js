@@ -74,7 +74,7 @@ export const GlobalStyle = createGlobalStyle`
   .container {
     width: 100%;
     margin: 0 auto;
-    padding: ${rem('20px')};
+    padding: 0 ${rem('20px')};
     max-width: ${rem('1280px')};
   }
 `

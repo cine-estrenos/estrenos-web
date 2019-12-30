@@ -4,8 +4,8 @@ import React from 'react'
 import { Container } from './styled'
 
 // Components
-import GitHub from 'components/Icons/GitHub'
-import Twitter from 'components/Icons/Twitter'
+import GitHub from 'components/ui/Icons/GitHub'
+import Twitter from 'components/ui/Icons/Twitter'
 
 const Footer = () => (
   <Container>

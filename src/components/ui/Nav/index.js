@@ -4,11 +4,13 @@ import React from 'react'
 import { Container } from './styled'
 
 // Components
-import Search from '../Search'
+import Search from 'components/ui/Search'
 
-const Nav = () => (
+const Nav = ({ handleToggleDarkMode }) => (
   <Container>
-    <h2>Estrenos</h2>
+    <h2 onClick={handleToggleDarkMode} role='presentation'>
+      Estrenos
+    </h2>
 
     <div className='links-search'>
       <ul>

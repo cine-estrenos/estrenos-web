@@ -5,7 +5,7 @@ import { rem } from 'polished'
 import { media } from 'utils/styles/media'
 
 export const Container = styled.footer`
-display: flex;
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: ${rem('40px')} 0;
@@ -61,38 +61,4 @@ display: flex;
       }
     }
   }
-
-  /*
-  display: flex;
-  justify-content: space-between;
-  padding: ${rem('60px')} 0;
-
-  .links-media {
-    ul {
-      display: grid;
-      grid-auto-flow: row;
-
-      @media ${media.tablet} {
-        grid-auto-flow: column;
-        grid-gap: ${rem('32px')};
-      }
-
-      li {
-        font-size: ${rem('14px')};
-      }
-    }
-
-    .media {
-      display: flex;
-
-      .github {
-        width: 27px;
-        margin-left: ${rem('20px')};
-      }
-
-      .twitter {
-        width: 29px;
-      }
-    }
-  } */
 `
