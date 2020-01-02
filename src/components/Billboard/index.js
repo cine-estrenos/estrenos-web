@@ -7,6 +7,7 @@ import nanoid from 'nanoid';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 import { H5, Label3 } from 'baseui/typography';
+import { Flipper, Flipped } from 'react-flip-toolkit';
 
 // Styled Components
 import { Container, Header, Body } from './styled';
@@ -47,12 +48,14 @@ const Loader = ({ isLoading }) => (
     </Header>
 
     <Body>
-      {Array.from({ length: 18 }, () => (
-        <div className="container-skeleton" key={nanoid()}>
-          <Skeleton className="movie-skeleton" ariaLabel="Cargando poster..." />
-          <Skeleton className="title-skeleton" ariaLabel="Cargando título..." />
-        </div>
-      ))}
+      <div>
+        {Array.from({ length: 18 }, () => (
+          <div className="container-skeleton" key={nanoid()}>
+            <Skeleton className="movie-skeleton" ariaLabel="Cargando poster..." />
+            <Skeleton className="title-skeleton" ariaLabel="Cargando título..." />
+          </div>
+        ))}
+      </div>
     </Body>
   </Container>
 );
@@ -97,16 +100,20 @@ const Billboard = () => {
       </Header>
 
       <Body>
-        {movies.map((movie) => (
-          <figure key={movie.id} onClick={() => navigate(`/peliculas/${movie.id}`)}>
-            <div>
-              <img src={movie.poster} alt={movie.title} />
-            </div>
-            <figcaption>
-              <Label3>{movie.title}</Label3>
-            </figcaption>
-          </figure>
-        ))}
+        <Flipper flipKey={selectedCinema}>
+          {movies.map((movie) => (
+            <Flipped flipId={movie.id}>
+              <figure onClick={() => navigate(`/peliculas/${movie.id}`)}>
+                <div>
+                  <img src={movie.poster} alt={movie.title} />
+                </div>
+                <figcaption>
+                  <Label3>{movie.title}</Label3>
+                </figcaption>
+              </figure>
+            </Flipped>
+          ))}
+        </Flipper>
       </Body>
     </Container>
   );
