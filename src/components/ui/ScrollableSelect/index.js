@@ -2,12 +2,10 @@ import React from 'react';
 import { withStyle } from 'baseui';
 import { Label2 } from 'baseui/typography';
 import { StyledList } from 'baseui/menu';
-// import { StyledList, StyledEmptyState } from 'baseui/menu';
 import { Select, StyledDropdownListItem } from 'baseui/select';
 import { FixedSizeList } from 'react-window';
 
 const LIST_ITEM_HEIGHT = 36;
-// const EMPTY_LIST_HEIGHT = 72;
 const MAX_LIST_HEIGHT = 200;
 
 const ListItem = withStyle(StyledDropdownListItem, {
@@ -51,15 +49,6 @@ const FixedSizeListItem = ({ data, index, style }) => {
 
 const VirtualDropdown = React.forwardRef((props, ref) => {
   const children = React.Children.toArray(props.children);
-
-  // if (!children[0] || !children[0].props.item) {
-  //   return (
-  //     <StyledList $style={{ height: EMPTY_LIST_HEIGHT + 'px' }} ref={ref}>
-  //       <StyledEmptyState {...children[0].props} />
-  //     </StyledList>
-  //   );
-  // }
-
   const height = Math.min(MAX_LIST_HEIGHT, children.length * LIST_ITEM_HEIGHT);
 
   return (
