@@ -26,7 +26,7 @@ export const Header = styled.header`
     @media ${media.tablet} {
       margin-bottom: 0;
       place-items: center;
-      grid-template-columns: auto ${rem('190px')};
+      grid-template-columns: auto ${rem('195px')};
     }
   }
 
