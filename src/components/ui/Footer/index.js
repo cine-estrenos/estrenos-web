@@ -1,4 +1,5 @@
 import React from 'react';
+import { Label2 } from 'baseui/typography';
 
 // Styled Components
 import { Container } from './styled';
@@ -9,18 +10,28 @@ import Twitter from 'components/ui/Icons/Twitter';
 
 const Footer = () => (
   <Container>
-    <span>Estrenos © {new Date().getFullYear()} - Todos los derechos reservados.</span>
+    <Label2>Estrenos © {new Date().getFullYear()} - Todos los derechos reservados.</Label2>
 
     <div className="links-media">
       <ul>
-        <li>Contacto</li>
-        <li>Política de Privacidad</li>
-        <li>Términos y Condiciones</li>
+        <li>
+          <Label2>Contacto</Label2>
+        </li>
+        <li>
+          <Label2>Política de Privacidad</Label2>
+        </li>
+        <li>
+          <Label2>Términos y Condiciones</Label2>
+        </li>
       </ul>
 
       <div className="media">
-        <Twitter />
-        <GitHub />
+        <a href="https://twitter.com/cine-estrenos" rel="noreferrer noopener">
+          <Twitter />
+        </a>
+        <a href="https://github.com/cine-estrenos" rel="noreferrer noopener">
+          <GitHub />
+        </a>
       </div>
     </div>
   </Container>

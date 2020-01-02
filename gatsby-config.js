@@ -1,11 +1,11 @@
-const path = require('path')
+const path = require('path');
 
-const folderPaths = ['pages', 'utils', 'components', 'images']
+const folderPaths = ['pages', 'utils', 'components', 'images'];
 
 const rootImportOptions = folderPaths.reduce(
   (acc, folderPath) => ({ ...acc, [folderPath]: path.join(__dirname, `src/${folderPath}`) }),
-  {}
-)
+  {},
+);
 
 module.exports = {
   siteMetadata: {
@@ -22,6 +22,10 @@ module.exports = {
       options: rootImportOptions,
     },
     {
+      resolve: 'gatsby-plugin-styletron',
+      options: { prefix: '_' },
+    },
+    {
       resolve: 'gatsby-plugin-manifest',
       options: {
         name: 'gatsby-starter-default',
@@ -34,4 +38,4 @@ module.exports = {
       },
     },
   ],
-}
+};

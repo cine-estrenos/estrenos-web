@@ -19,13 +19,20 @@ export const Container = styled.header`
     grid-gap: ${rem('40px')};
   }
 
-  h2 {
-    @media ${media.tablet} {
-      font-size: ${rem('52px')};
-    }
-  }
-
   article {
+    @media ${media.tablet} {
+      padding-top: ${rem('36px')};
+    }
+
+    h2 {
+      font-weight: 600;
+      margin-bottom: ${rem('12px')};
+
+      @media ${media.tablet} {
+        font-size: ${rem('52px')};
+      }
+    }
+
     .info {
       font-weight: 600;
       font-size: ${rem('12px')};
@@ -40,6 +47,10 @@ export const Container = styled.header`
       :not(.loader) {
         display: flex;
         align-items: center;
+      }
+
+      .category {
+        font-weight: 600;
       }
 
       svg {
@@ -61,7 +72,16 @@ export const Container = styled.header`
     }
 
     .btn-container {
+      display: flex;
       height: ${rem('57px')};
+
+      @media ${media.tablet} {
+        display: block;
+      }
+
+      button {
+        flex: 1;
+      }
     }
   }
 
@@ -101,7 +121,7 @@ export const Container = styled.header`
 
     @media ${media.tablet} {
       width: 240px;
-      height: 78px;
+      height: 44px;
     }
   }
 
@@ -122,11 +142,11 @@ export const Container = styled.header`
 
   .btn-skeleton {
     width: 100%;
-    height: 57px;
+    height: 56px;
 
     @media ${media.tablet} {
-      width: 164px;
-      height: 57px;
+      width: 189px;
+      height: 56px;
     }
   }
 `;

@@ -1,26 +1,35 @@
 import React from 'react';
+import { Input } from 'baseui/input';
+import { H1, Label2 } from 'baseui/typography';
 
 // Styled Components
 import { Container } from './styled';
 
 // Components
-import Search from 'components/ui/Search';
 
 const Nav = ({ handleToggleDarkMode }) => (
   <Container>
-    <h2 onClick={handleToggleDarkMode} role="presentation">
+    <H1 onClick={handleToggleDarkMode} role="presentation">
       Estrenos
-    </h2>
+    </H1>
 
     <div className="links-search">
       <ul>
-        <li>Home</li>
-        <li>Películas</li>
-        <li>Cine</li>
-        <li>Contacto</li>
+        <li>
+          <Label2>Home</Label2>
+        </li>
+        <li>
+          <Label2>Películas</Label2>
+        </li>
+        <li>
+          <Label2>Cine</Label2>
+        </li>
+        <li>
+          <Label2>Contacto</Label2>
+        </li>
       </ul>
 
-      <Search />
+      <Input placeholder="Buscá por película o cine" />
     </div>
   </Container>
 );

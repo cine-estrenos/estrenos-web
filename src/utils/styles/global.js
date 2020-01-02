@@ -12,7 +12,6 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   html {
-    line-height: 1.5;
     word-break: break-word;
     scroll-behavior: smooth;
     -ms-text-size-adjust: 100%;
@@ -28,9 +27,8 @@ export const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, 'Apple Color Emoji',
       'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    color: ${(props) => props.theme.text};
-    background-color: ${(props) => props.theme.bg};
     transition: all 400ms ease;
+    background-color: ${(props) => props.theme.bg};
   }
 
   ul {
@@ -71,6 +69,6 @@ export const GlobalStyle = createGlobalStyle`
     width: 100%;
     margin: 0 auto;
     padding: 0 ${rem('20px')};
-    max-width: ${rem('1280px')};
+    max-width: ${rem('1240px')};
   }
 `;
