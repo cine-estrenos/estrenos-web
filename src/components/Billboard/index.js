@@ -10,7 +10,7 @@ import { H5, Label3 } from 'baseui/typography';
 import { Flipper, Flipped } from 'react-flip-toolkit';
 
 // Styled Components
-import { Container, Header, Body } from './styled';
+import { Container, Header, Body, Overlay } from './styled';
 
 // Components
 import { Skeleton } from 'components/ui/Skeletons';
@@ -61,6 +61,7 @@ const Loader = ({ isLoading }) => (
 );
 
 const Billboard = () => {
+  const [hoveredMovieId, setHoveredMovieId] = useState('');
   const [selectedCinema, setSelectedCinema] = useState(null);
   const { data, loading: isLoading, error: hasError } = useQuery(BILLBOARD_MOVIES, {
     variables: { cinemaId: selectedCinema !== null ? selectedCinema.id : '' },
@@ -102,10 +103,16 @@ const Billboard = () => {
       <Body>
         <Flipper flipKey={selectedCinema}>
           {movies.map((movie) => (
-            <Flipped flipId={movie.id}>
-              <figure onClick={() => navigate(`/peliculas/${movie.id}`)}>
+            <Flipped key={movie.id} flipId={movie.id}>
+              <figure
+                onMouseLeave={() => setHoveredMovieId('')}
+                onMouseEnter={() => setHoveredMovieId(movie.id)}
+                onClick={() => navigate(`/peliculas/${movie.id}`)}
+                className={hoveredMovieId === '' ? '' : hoveredMovieId === movie.id ? 'focus' : 'blur'}
+              >
                 <div>
                   <img src={movie.poster} alt={movie.title} />
+                  <Overlay />
                 </div>
                 <figcaption>
                   <Label3>{movie.title}</Label3>

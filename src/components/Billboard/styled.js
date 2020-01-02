@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { rem } from 'polished';
+import { rem, rgba } from 'polished';
 
 // Styles
 import { media } from 'utils/styles/media';
@@ -49,6 +49,22 @@ export const Body = styled.div`
   figure {
     cursor: pointer;
 
+    &.focus {
+      .overlay {
+        opacity: 0;
+      }
+    }
+
+    &.blur {
+      .overlay {
+        opacity: 1;
+      }
+
+      figcaption {
+        opacity: 0;
+      }
+    }
+
     &:hover {
       img {
         transform: scale(1.1);
@@ -57,6 +73,7 @@ export const Body = styled.div`
 
     > div {
       overflow: hidden;
+      position: relative;
       height: ${rem('230px')};
       margin-bottom: ${rem('8px')};
 
@@ -69,7 +86,7 @@ export const Body = styled.div`
         height: ${rem('230px')};
 
         object-fit: cover;
-        transition: all 400ms ease;
+        transition: all 400ms ease-in-out;
 
         @media ${media.tablet} {
           width: ${rem('180px')};
@@ -106,4 +123,17 @@ export const Body = styled.div`
       height: ${rem('18px')};
     }
   }
+`;
+
+export const Overlay = styled.div.attrs({ className: 'overlay' })`
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transition: all 800ms ease;
+  background-color: ${(props) => rgba(props.theme.text, 0.4)};
 `;
