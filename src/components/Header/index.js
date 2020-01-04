@@ -3,14 +3,16 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 
 import React, { useRef, useState } from 'react';
+import { navigate } from 'gatsby';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
+import { Button, SIZE } from 'baseui/button';
+import { H2, Paragraph2, Label4 } from 'baseui/typography';
 
 // Styled Components
 import { Container, Overlay } from './styled';
 
 // Components
-import Button from 'components/ui/Button';
 import Rating from 'components/ui/Rating';
 import Play from 'components/ui/Icons/Play';
 import { Skeleton, ResponsiveSkeleton } from 'components/ui/Skeletons';
@@ -36,7 +38,7 @@ const MOST_POPULAR_MOVIE = gql`
   }
 `;
 
-const Loader = ({ isTablet = true }) => (
+const Loader = () => (
   <Container>
     <article>
       <Skeleton className="title-skeleton" ariaLabel="Cargando título..." />
@@ -83,20 +85,22 @@ const Header = () => {
   return (
     <Container image={movie.backdrop}>
       <article>
-        <h2>{movie.title}</h2>
+        <H2>{movie.title}</H2>
 
         <div className="info">
-          <span className="category">
+          <Label4 className="category">
             {movie.category.value}
             {movie.votes === '0' ? '' : ' | '}
-          </span>
+          </Label4>
           {movie.votes !== '0' && <Rating votes={movie.votes} />}
         </div>
 
-        <p className="description">{truncateUntilFirstDot(movie.description)}</p>
+        <Paragraph2 className="description">{truncateUntilFirstDot(movie.description)}</Paragraph2>
 
         <div className="btn-container">
-          <Button to={`/peliculas/${movie.id}`}>Comprar entradas</Button>
+          <Button size={SIZE.large} onClick={() => navigate(`/peliculas/${movie.id}`)}>
+            Comprar entradas
+          </Button>
         </div>
       </article>
 

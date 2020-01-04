@@ -15,7 +15,8 @@ export const Container = styled.nav`
     flex-direction: row;
   }
 
-  h2 {
+  h1 {
+    font-weight: 600;
     font-size: ${rem('24px')};
     text-transform: uppercase;
     margin-bottom: ${rem('16px')};
@@ -34,6 +35,7 @@ export const Container = styled.nav`
     @media ${media.tablet} {
       grid-auto-flow: column;
       grid-gap: ${rem('32px')};
+      grid-template-columns: auto ${rem('230px')};
     }
 
     ul {
@@ -43,10 +45,6 @@ export const Container = styled.nav`
       @media ${media.tablet} {
         grid-auto-flow: column;
         grid-gap: ${rem('32px')};
-      }
-
-      li {
-        font-size: ${rem('14px')};
       }
     }
   }
