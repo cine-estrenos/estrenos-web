@@ -9,7 +9,7 @@ import { Container } from './styled';
 
 const Nav = ({ handleToggleDarkMode }) => (
   <Container>
-    <H1 onClick={handleToggleDarkMode} role="presentation">
+    <H1 role="presentation" onClick={handleToggleDarkMode}>
       Estrenos
     </H1>
 

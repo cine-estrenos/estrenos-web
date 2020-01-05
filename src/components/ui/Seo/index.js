@@ -22,9 +22,7 @@ function SEO({ description, lang, meta, title }) {
 
   return (
     <Helmet
-      title={title}
       htmlAttributes={{ lang }}
-      titleTemplate={`${site.siteMetadata.title} | %s`}
       meta={[
         {
           name: `description`,
@@ -59,6 +57,8 @@ function SEO({ description, lang, meta, title }) {
           content: metaDescription,
         },
       ].concat(meta)}
+      title={title}
+      titleTemplate={`${site.siteMetadata.title} | %s`}
     />
   );
 }
