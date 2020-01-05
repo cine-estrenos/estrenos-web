@@ -17,6 +17,7 @@ module.exports = {
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-use-dark-mode',
     'gatsby-plugin-styled-components',
+    'gatsby-plugin-eslint',
     {
       resolve: 'gatsby-plugin-root-import',
       options: rootImportOptions,

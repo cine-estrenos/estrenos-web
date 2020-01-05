@@ -41,18 +41,18 @@ const MOST_POPULAR_MOVIE = gql`
 const Loader = () => (
   <Container>
     <article>
-      <Skeleton className="title-skeleton" ariaLabel="Cargando título..." />
+      <Skeleton ariaLabel="Cargando título..." className="title-skeleton" />
 
       <div className="info loader">
-        <Skeleton className="genre-skeleton" ariaLabel="Cargando género y puntuación..." />
+        <Skeleton ariaLabel="Cargando género y puntuación..." className="genre-skeleton" />
       </div>
 
       <p className="description">
-        <Skeleton className="description-skeleton" ariaLabel="Cargando descripción..." />
+        <Skeleton ariaLabel="Cargando descripción..." className="description-skeleton" />
       </p>
 
       <div className="btn-container">
-        <Skeleton className="btn-skeleton" ariaLabel="Cargando descripción..." />
+        <Skeleton ariaLabel="Cargando descripción..." className="btn-skeleton" />
       </div>
     </article>
 
@@ -105,7 +105,7 @@ const Header = () => {
       </article>
 
       <figure>
-        <video loop preload="auto" ref={videoRef}>
+        <video ref={videoRef} loop preload="auto">
           <source src={movie.amazonTrailerUrl} type="video/mp4" />
         </video>
         <Overlay hidden={!displayOverlay} image={movie.backdrop} onClick={handlePlay}>
