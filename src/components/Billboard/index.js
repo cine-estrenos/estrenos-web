@@ -50,9 +50,9 @@ const Loader = ({ isLoading }) => (
     <Body>
       <div>
         {Array.from({ length: 18 }, () => (
-          <div className="container-skeleton" key={nanoid()}>
-            <Skeleton className="movie-skeleton" ariaLabel="Cargando poster..." />
-            <Skeleton className="title-skeleton" ariaLabel="Cargando título..." />
+          <div key={nanoid()} className="container-skeleton">
+            <Skeleton ariaLabel="Cargando poster..." className="movie-skeleton" />
+            <Skeleton ariaLabel="Cargando título..." className="title-skeleton" />
           </div>
         ))}
       </div>
@@ -87,11 +87,11 @@ const Billboard = () => {
           <H5 className="title">En cartelera</H5>
           <ScrollableSelect
             labelKey="name"
-            valueKey="name"
-            value={selectedCinema}
             options={options}
-            onChange={handleChangeCinema}
             placeholder="Selecciona tu cine"
+            value={selectedCinema}
+            valueKey="name"
+            onChange={handleChangeCinema}
           />
         </div>
 
@@ -105,13 +105,13 @@ const Billboard = () => {
           {movies.map((movie) => (
             <Flipped key={movie.id} flipId={movie.id}>
               <figure
-                onMouseLeave={() => setHoveredMovieId('')}
-                onMouseEnter={() => setHoveredMovieId(movie.id)}
-                onClick={() => navigate(`/peliculas/${movie.id}`)}
                 className={hoveredMovieId === '' ? '' : hoveredMovieId === movie.id ? 'focus' : 'blur'}
+                onClick={() => navigate(`/peliculas/${movie.id}`)}
+                onMouseEnter={() => setHoveredMovieId(movie.id)}
+                onMouseLeave={() => setHoveredMovieId('')}
               >
                 <div>
-                  <img src={movie.poster} alt={movie.title} />
+                  <img alt={movie.title} src={movie.poster} />
                   <Overlay />
                 </div>
                 <figcaption>

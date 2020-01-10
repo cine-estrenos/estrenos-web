@@ -16,7 +16,7 @@ const ListItem = withStyle(StyledDropdownListItem, {
 });
 
 const FixedSizeListItem = ({ data, index, style }) => {
-  const { item, overrides, ...restChildProps } = data[index].props;
+  const { item, ...restChildProps } = data[index].props;
 
   if (!item) {
     return (
@@ -52,9 +52,8 @@ const VirtualDropdown = React.forwardRef((props, ref) => {
   const height = Math.min(MAX_LIST_HEIGHT, children.length * LIST_ITEM_HEIGHT);
 
   return (
-    <StyledList $style={{ height: height + 'px' }} ref={ref}>
+    <StyledList ref={ref} $style={{ height: height + 'px' }}>
       <FixedSizeList
-        width="100%"
         height={height}
         itemCount={children.length}
         itemData={children}
@@ -63,6 +62,7 @@ const VirtualDropdown = React.forwardRef((props, ref) => {
           return data[index].props.item.name;
         }}
         itemSize={LIST_ITEM_HEIGHT}
+        width="100%"
       >
         {FixedSizeListItem}
       </FixedSizeList>
