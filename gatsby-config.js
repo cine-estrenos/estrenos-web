@@ -1,11 +1,17 @@
 const path = require('path');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const folderPaths = ['pages', 'utils', 'components', 'images'];
-
 const rootImportOptions = folderPaths.reduce(
-  (acc, folderPath) => ({ ...acc, [folderPath]: path.join(__dirname, `src/${folderPath}`) }),
+  (acc, folderPath) => ({
+    ...acc,
+    [folderPath]: path.join(__dirname, `src/${folderPath}`),
+  }),
   {},
 );
+console.log('TCL: process.env.GATSBY_API_URL', process.env.GATSBY_API_URL);
 
 module.exports = {
   siteMetadata: {
@@ -14,6 +20,15 @@ module.exports = {
     author: 'Leonardo Galante, Hugo Farji, Gonzalo Pozzo, Juan Gomez',
   },
   plugins: [
+    {
+      resolve: 'gatsby-source-graphql',
+      options: {
+        typeName: 'ESTRENOS',
+        fieldName: 'ESTRENOS',
+        url: `https://estrenos.herokuapp.com/graphql`,
+        refetchInterval: 60,
+      },
+    },
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-use-dark-mode',
     'gatsby-plugin-styled-components',
