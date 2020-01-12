@@ -22,6 +22,7 @@ const query = graphql`
     estrenos {
       movies(limit: 1) {
         id
+        slug
         title
         votes
         length
@@ -73,7 +74,7 @@ const Header = () => {
         <Paragraph2 className="description">{truncateUntilFirstDot(movie.description)}</Paragraph2>
 
         <div className="btn-container">
-          <Button size={SIZE.large} onClick={() => navigate(`/peliculas/${movie.id}`)}>
+          <Button size={SIZE.large} onClick={() => navigate(`/peliculas/${movie.slug}`)}>
             Comprar entradas
           </Button>
         </div>

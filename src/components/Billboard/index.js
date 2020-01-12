@@ -13,6 +13,7 @@ const query = graphql`
     estrenos {
       movies {
         id
+        slug
         title
         poster
         cast {
@@ -46,7 +47,7 @@ const Billboard = () => {
           <figure
             key={movie.id}
             className={hoveredMovieId === '' ? '' : hoveredMovieId === movie.id ? 'focus' : 'blur'}
-            onClick={() => navigate(`/peliculas/${movie.id}`)}
+            onClick={() => navigate(`/peliculas/${movie.slug}`)}
             onMouseEnter={() => setHoveredMovieId(movie.id)}
             onMouseLeave={() => setHoveredMovieId('')}
           >
