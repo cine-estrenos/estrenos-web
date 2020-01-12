@@ -11,7 +11,6 @@ const rootImportOptions = folderPaths.reduce(
   }),
   {},
 );
-console.log('TCL: process.env.GATSBY_API_URL', process.env.GATSBY_API_URL);
 
 module.exports = {
   siteMetadata: {
@@ -20,19 +19,18 @@ module.exports = {
     author: 'Leonardo Galante, Hugo Farji, Gonzalo Pozzo, Juan Gomez',
   },
   plugins: [
-    {
-      resolve: 'gatsby-source-graphql',
-      options: {
-        typeName: 'ESTRENOS',
-        fieldName: 'ESTRENOS',
-        url: `https://estrenos.herokuapp.com/graphql`,
-        refetchInterval: 60,
-      },
-    },
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-use-dark-mode',
     'gatsby-plugin-styled-components',
     'gatsby-plugin-eslint',
+    {
+      resolve: 'gatsby-source-graphql',
+      options: {
+        typeName: 'ESTRENOS',
+        fieldName: 'estrenos',
+        url: process.env.GATSBY_API_URL,
+      },
+    },
     {
       resolve: 'gatsby-plugin-root-import',
       options: rootImportOptions,

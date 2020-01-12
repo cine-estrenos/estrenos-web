@@ -54,6 +54,10 @@ export const Container = styled.footer`
       .github,
       .twitter {
         transition: all 400ms ease;
+
+        :hover {
+          opacity: 0.8;
+        }
       }
 
       .github {
