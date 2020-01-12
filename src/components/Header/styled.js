@@ -121,7 +121,6 @@ export const Overlay = styled.div.attrs({ className: 'overlay' })`
   justify-content: center;
 
   opacity: 1;
-  z-index: 1;
   cursor: pointer;
   transition: all 400ms ease;
 
