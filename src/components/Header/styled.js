@@ -62,8 +62,15 @@ export const Container = styled.header`
     }
 
     .description {
-      height: auto;
       margin-bottom: ${rem('32px')};
+
+      overflow: hidden;
+      display: -webkit-box;
+
+      line-clamp: 3;
+      -webkit-line-clamp: 3;
+      box-orient: vertical;
+      -webkit-box-orient: vertical;
 
       @media ${media.tablet} {
         margin-bottom: ${rem('56px')};
