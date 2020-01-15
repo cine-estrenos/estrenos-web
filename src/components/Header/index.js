@@ -14,9 +14,6 @@ import { Container, Overlay } from './styled';
 import Rating from 'components/ui/Rating';
 import Play from 'components/ui/Icons/Play';
 
-// Utils
-import { truncateUntilFirstDot } from 'utils/helpers';
-
 const query = graphql`
   query MostPopularMovie {
     estrenos {
@@ -71,7 +68,7 @@ const Header = () => {
           {movie.votes !== '0' && <Rating votes={movie.votes} />}
         </div>
 
-        <Paragraph2 className="description">{truncateUntilFirstDot(movie.description)}</Paragraph2>
+        <Paragraph2 className="description">{movie.description}</Paragraph2>
 
         <div className="btn-container">
           <Button size={SIZE.large} onClick={() => navigate(`/peliculas/${movie.slug}`)}>
