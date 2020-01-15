@@ -1,9 +1,14 @@
 const path = require('path');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const folderPaths = ['pages', 'utils', 'components', 'images'];
-
 const rootImportOptions = folderPaths.reduce(
-  (acc, folderPath) => ({ ...acc, [folderPath]: path.join(__dirname, `src/${folderPath}`) }),
+  (acc, folderPath) => ({
+    ...acc,
+    [folderPath]: path.join(__dirname, `src/${folderPath}`),
+  }),
   {},
 );
 
@@ -18,6 +23,14 @@ module.exports = {
     'gatsby-plugin-use-dark-mode',
     'gatsby-plugin-styled-components',
     'gatsby-plugin-eslint',
+    {
+      resolve: 'gatsby-source-graphql',
+      options: {
+        typeName: 'ESTRENOS',
+        fieldName: 'estrenos',
+        url: process.env.GATSBY_API_URL,
+      },
+    },
     {
       resolve: 'gatsby-plugin-root-import',
       options: rootImportOptions,

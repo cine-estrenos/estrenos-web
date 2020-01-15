@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { rem, rgba } from 'polished';
+import { rem } from 'polished';
 
 // Styles
 import { media } from 'utils/styles/media';
@@ -35,39 +35,34 @@ export const Header = styled.header`
 `;
 
 export const Body = styled.div`
-  > div {
-    display: grid;
-    grid-row-gap: ${rem('32px')};
-    grid-column-gap: ${rem('24px')};
-    grid-template-columns: repeat(auto-fill, ${rem('140px')});
+  display: grid;
+  grid-row-gap: ${rem('32px')};
+  grid-column-gap: ${rem('24px')};
+  justify-content: center;
+  grid-template-columns: repeat(auto-fill, ${rem('140px')});
 
-    @media ${media.tablet} {
-      grid-template-columns: repeat(auto-fill, ${rem('180px')});
-    }
+  @media ${media.tablet} {
+    grid-template-columns: repeat(auto-fill, ${rem('180px')});
   }
 
   figure {
     cursor: pointer;
+    transition: all 400ms ease-in-out;
 
     &.focus {
-      .overlay {
-        opacity: 0;
+      img {
+        opacity: 1;
+        transform: scale(1.1);
       }
     }
 
     &.blur {
-      .overlay {
-        opacity: 1;
+      img {
+        opacity: 0.3;
       }
 
       figcaption {
-        opacity: 0;
-      }
-    }
-
-    &:hover {
-      img {
-        transform: scale(1.1);
+        opacity: 0.8;
       }
     }
 
@@ -96,8 +91,6 @@ export const Body = styled.div`
     }
 
     figcaption {
-      transition: all 400ms ease;
-
       div {
         white-space: nowrap;
         overflow: hidden;
@@ -105,35 +98,4 @@ export const Body = styled.div`
       }
     }
   }
-
-  .container-skeleton {
-    .movie-skeleton {
-      width: ${rem('140px')};
-      height: ${rem('230px')};
-      margin-bottom: ${rem('8px')};
-
-      @media ${media.tablet} {
-        width: ${rem('180px')};
-        height: ${rem('270px')};
-      }
-    }
-
-    .title-skeleton {
-      width: 100%;
-      height: ${rem('18px')};
-    }
-  }
-`;
-
-export const Overlay = styled.div.attrs({ className: 'overlay' })`
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  opacity: 0;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  transition: all 800ms ease;
-  background-color: ${(props) => rgba(props.theme.text, 0.4)};
 `;

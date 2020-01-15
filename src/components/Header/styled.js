@@ -28,12 +28,19 @@ export const Container = styled.header`
       font-weight: 600;
       margin-bottom: ${rem('12px')};
 
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+
       @media ${media.tablet} {
         font-size: ${rem('52px')};
       }
     }
 
     .info {
+      display: flex;
+      align-items: center;
+
       font-weight: 600;
       font-size: ${rem('12px')};
 
@@ -44,13 +51,9 @@ export const Container = styled.header`
         margin-bottom: ${rem('38px')};
       }
 
-      :not(.loader) {
-        display: flex;
-        align-items: center;
-      }
-
       .category {
         font-weight: 600;
+        display: inline-block;
       }
 
       svg {
@@ -64,10 +67,6 @@ export const Container = styled.header`
 
       @media ${media.tablet} {
         margin-bottom: ${rem('56px')};
-      }
-
-      &.loader {
-        height: ${rem('96px')};
       }
     }
 
@@ -114,41 +113,6 @@ export const Container = styled.header`
       object-fit: cover;
     }
   }
-
-  .title-skeleton {
-    width: 85px;
-    height: 28px;
-
-    @media ${media.tablet} {
-      width: 240px;
-      height: 44px;
-    }
-  }
-
-  .genre-skeleton {
-    width: 147px;
-    height: 18px;
-  }
-
-  .description-skeleton {
-    width: 100%;
-    height: 72px;
-
-    @media ${media.tablet} {
-      width: 400px;
-      height: 72px;
-    }
-  }
-
-  .btn-skeleton {
-    width: 100%;
-    height: 56px;
-
-    @media ${media.tablet} {
-      width: 189px;
-      height: 56px;
-    }
-  }
 `;
 
 export const Overlay = styled.div.attrs({ className: 'overlay' })`
@@ -157,7 +121,6 @@ export const Overlay = styled.div.attrs({ className: 'overlay' })`
   justify-content: center;
 
   opacity: 1;
-  z-index: 1;
   cursor: pointer;
   transition: all 400ms ease;
 
