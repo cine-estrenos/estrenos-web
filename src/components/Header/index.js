@@ -62,8 +62,8 @@ const Header = () => {
 
         <div className="info">
           <Label4 className="category">
-            {movie.genres[0].value}
-            {movie.votes === '0' ? '' : ' | '}
+            {movie.genres.length && `${movie.genres[0].value} | `}
+            {movie.votes !== '0' && movie.votes}
           </Label4>
           {movie.votes !== '0' && <Rating votes={movie.votes} />}
         </div>
