@@ -19,10 +19,11 @@ module.exports = {
     author: 'Leonardo Galante, Hugo Farji, Gonzalo Pozzo, Juan Gomez',
   },
   plugins: [
+    'gatsby-plugin-eslint',
+    'gatsby-plugin-netlify',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-use-dark-mode',
     'gatsby-plugin-styled-components',
-    'gatsby-plugin-eslint',
     {
       resolve: 'gatsby-source-graphql',
       options: {
