@@ -3,7 +3,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 
 import React, { useEffect, useRef } from 'react';
-import { navigate, graphql, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery, Link } from 'gatsby';
 import { Button, SIZE } from 'baseui/button';
 import { H2, Paragraph2, Label4 } from 'baseui/typography';
 
@@ -79,9 +79,9 @@ const Header = () => {
         <Paragraph2 className="description">{movie.description}</Paragraph2>
 
         <div className="btn-container">
-          <Button size={SIZE.large} onClick={() => navigate(`/peliculas/${movie.slug}`)}>
-            Comprar entradas
-          </Button>
+          <Link to={`/peliculas/${movie.slug}`}>
+            <Button size={SIZE.large}>Comprar entradas</Button>
+          </Link>
         </div>
       </article>
 

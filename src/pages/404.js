@@ -1,13 +1,17 @@
 import React from 'react';
+import { H2, Paragraph2 } from 'baseui/typography';
 
-import Layout from 'components/ui/Layout';
+// Components
 import SEO from 'components/ui/Seo';
+import Layout from 'components/ui/Layout';
+import BackTo from 'components/ui/BackTo';
 
 const NotFoundPage = () => (
   <Layout>
-    <SEO title="404: Not found" />
-    <h1>NOT FOUND</h1>
-    <p>You just hit a route that doesn&#39;t exist... the sadness.</p>
+    <SEO title="Ruta no encontrada" />
+    <H2>Lo lamentamos</H2>
+    <Paragraph2>Llegate a una ruta inexistente...</Paragraph2>
+    <BackTo route="/">Volver a todas las películas</BackTo>
   </Layout>
 );
 
