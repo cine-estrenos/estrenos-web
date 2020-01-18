@@ -48,7 +48,10 @@ const Header = () => {
   useEffect(() => {
     if (typeof window !== 'undefined' && typeof document !== 'undefined') {
       const Plyr = require('plyr');
-      const player = new Plyr(videoRef.current, { title: movie.title });
+      const player = new Plyr(videoRef.current, {
+        title: movie.title,
+        controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
+      });
       const sources = [
         {
           src: movie.trailer.href,
