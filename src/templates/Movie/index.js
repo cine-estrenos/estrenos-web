@@ -51,7 +51,15 @@ const Movie = ({ data: { estrenos } }) => {
 
   const chains = [...new Set(cinemas.map(({ chain }) => chain))];
   const options = chains.reduce(
-    (acc, chain) => ({ ...acc, [chain]: cinemas.filter(({ chain: cinemaChain }) => chain === cinemaChain) }),
+    (acc, chain) => ({
+      ...acc,
+      [chain]: cinemas
+        .filter(({ chain: cinemaChain }) => chain === cinemaChain)
+        .map((cinema) => {
+          const enabled = shows.some(({ cinemaId }) => cinemaId === cinema.id);
+          return { ...cinema, disabled: !enabled };
+        }),
+    }),
     {},
   );
 

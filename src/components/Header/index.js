@@ -47,7 +47,7 @@ const Header = () => {
   const [movie] = movies;
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && typeof window.document !== 'undefined') {
       const player = new Plyr(videoRef.current, { title: movie.title });
       const sources = [
         {
