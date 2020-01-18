@@ -38,7 +38,6 @@ export const Body = styled.div`
   display: grid;
   grid-row-gap: ${rem('32px')};
   grid-column-gap: ${rem('24px')};
-  justify-content: center;
   grid-template-columns: repeat(auto-fill, ${rem('140px')});
 
   @media ${media.tablet} {

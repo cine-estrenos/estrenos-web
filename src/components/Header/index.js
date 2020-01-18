@@ -2,17 +2,17 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { navigate, graphql, useStaticQuery } from 'gatsby';
+import Plyr from 'plyr';
 import { Button, SIZE } from 'baseui/button';
 import { H2, Paragraph2, Label4 } from 'baseui/typography';
 
 // Styled Components
-import { Container, Overlay } from './styled';
+import { Container } from './styled';
 
 // Components
 import Rating from 'components/ui/Rating';
-import Play from 'components/ui/Icons/Play';
 
 const query = graphql`
   query MostPopularMovie {
@@ -26,7 +26,10 @@ const query = graphql`
         poster
         backdrop
         description
-        trailer
+        trailer {
+          href
+          type
+        }
         genres {
           value
         }
@@ -39,21 +42,23 @@ const Header = () => {
   const {
     estrenos: { movies },
   } = useStaticQuery(query);
-
-  const videoRef = useRef();
-  const [displayOverlay, setDisplayOverlay] = useState(true);
-
-  const handlePlay = () => {
-    if (videoRef.current.paused || videoRef.current.ended) {
-      videoRef.current.play();
-      setDisplayOverlay(false);
-    } else {
-      videoRef.current.pause();
-      setDisplayOverlay(true);
-    }
-  };
+  const videoRef = useRef(null);
 
   const [movie] = movies;
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+      const player = new Plyr(videoRef.current, { title: movie.title });
+      const sources = [
+        {
+          src: movie.trailer.href,
+          ...(movie.trailer.type === 'file' && { type: 'video/mp4' }),
+          ...(movie.trailer.type === 'youtube' && { provider: 'youtube' }),
+        },
+      ];
+      player.source = { type: 'video', sources };
+    }
+  }, [videoRef]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Container image={movie.backdrop}>
@@ -63,7 +68,6 @@ const Header = () => {
         <div className="info">
           <Label4 className="category">
             {movie.genres.length && movie.genres[0].value}
-            {movie.votes !== '0' && movie.votes}
             {movie.genres.length && movie.votes !== '0' && ' | '}
           </Label4>
           {movie.votes !== '0' && <Rating votes={movie.votes} />}
@@ -79,12 +83,7 @@ const Header = () => {
       </article>
 
       <figure>
-        <video ref={videoRef} loop preload="auto">
-          <source src={movie.trailer} type="video/mp4" />
-        </video>
-        <Overlay hidden={!displayOverlay} image={movie.backdrop} onClick={handlePlay}>
-          <Play />
-        </Overlay>
+        <video ref={videoRef} poster={movie.backdrop} preload="auto" />
       </figure>
     </Container>
   );
