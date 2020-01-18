@@ -47,7 +47,7 @@ const Header = () => {
   const [movie] = movies;
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+    if (typeof window !== 'undefined') {
       const player = new Plyr(videoRef.current, { title: movie.title });
       const sources = [
         {
@@ -56,7 +56,7 @@ const Header = () => {
           ...(movie.trailer.type === 'youtube' && { provider: 'youtube' }),
         },
       ];
-      player.source = { type: 'video', sources };
+      player.source = { type: 'video', poster: movie.backdrop, sources };
     }
   }, [videoRef]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -83,7 +83,7 @@ const Header = () => {
       </article>
 
       <figure>
-        <video ref={videoRef} poster={movie.backdrop} preload="auto" />
+        <video ref={videoRef} preload="auto" />
       </figure>
     </Container>
   );

@@ -7,9 +7,11 @@ import { media } from 'utils/styles/media';
 export const Container = styled.header`
   display: grid;
   grid-gap: ${rem('20px')};
+  grid-template-rows: auto ${rem('290px')};
 
   @media ${media.desktop} {
     grid-gap: ${rem('100px')};
+    grid-template-rows: ${rem('400px')};
     grid-template-columns: ${rem('400px')} 1fr;
   }
 
