@@ -4,7 +4,6 @@
 
 import React, { useEffect, useRef } from 'react';
 import { navigate, graphql, useStaticQuery } from 'gatsby';
-import Plyr from 'plyr';
 import { Button, SIZE } from 'baseui/button';
 import { H2, Paragraph2, Label4 } from 'baseui/typography';
 
@@ -47,7 +46,8 @@ const Header = () => {
   const [movie] = movies;
 
   useEffect(() => {
-    if (typeof window !== 'undefined' && typeof window.document !== 'undefined') {
+    if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+      const Plyr = require('plyr');
       const player = new Plyr(videoRef.current, { title: movie.title });
       const sources = [
         {
