@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 
 import React, { useState } from 'react';
-import { navigate, graphql, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery, Link } from 'gatsby';
 import { H5, Label3 } from 'baseui/typography';
 
 // Styled Components
@@ -44,20 +44,21 @@ const Billboard = () => {
 
       <Body>
         {movies.map((movie) => (
-          <figure
-            key={movie.id}
-            className={hoveredMovieId === '' ? '' : hoveredMovieId === movie.id ? 'focus' : 'blur'}
-            onClick={() => navigate(`/peliculas/${movie.slug}`)}
-            onMouseEnter={() => setHoveredMovieId(movie.id)}
-            onMouseLeave={() => setHoveredMovieId('')}
-          >
-            <div>
-              <img alt={movie.title} src={movie.poster} />
-            </div>
-            <figcaption>
-              <Label3>{movie.title}</Label3>
-            </figcaption>
-          </figure>
+          <Link to={`/peliculas/${movie.slug}`}>
+            <figure
+              key={movie.id}
+              className={hoveredMovieId === '' ? '' : hoveredMovieId === movie.id ? 'focus' : 'blur'}
+              onMouseEnter={() => setHoveredMovieId(movie.id)}
+              onMouseLeave={() => setHoveredMovieId('')}
+            >
+              <div>
+                <img alt={movie.title} src={movie.poster} />
+              </div>
+              <figcaption>
+                <Label3>{movie.title}</Label3>
+              </figcaption>
+            </figure>
+          </Link>
         ))}
       </Body>
     </Container>

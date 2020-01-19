@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
 import { Table } from 'baseui/table';
-import { H2, Label2 } from 'baseui/typography';
+import { H2 } from 'baseui/typography';
 
 // Components
 import ScrollableSelect from 'components/ui/ScrollableSelect';
 
 // Styled Components
-import { GoBack, Header, TableContainer } from './styled';
+import { Header, TableContainer } from './styled';
 
 // Components
 import SEO from 'components/ui/Seo';
 import Layout from 'components/ui/Layout';
-import ChevronLeft from 'components/ui/Icons/ChevronLeft';
+import BackTo from 'components/ui/BackTo';
 
 export const query = graphql`
   query($id: String!) {
@@ -51,7 +51,15 @@ const Movie = ({ data: { estrenos } }) => {
 
   const chains = [...new Set(cinemas.map(({ chain }) => chain))];
   const options = chains.reduce(
-    (acc, chain) => ({ ...acc, [chain]: cinemas.filter(({ chain: cinemaChain }) => chain === cinemaChain) }),
+    (acc, chain) => ({
+      ...acc,
+      [chain]: cinemas
+        .filter(({ chain: cinemaChain }) => chain === cinemaChain)
+        .map((cinema) => {
+          const enabled = shows.some(({ cinemaId }) => cinemaId === cinema.id);
+          return { ...cinema, disabled: !enabled };
+        }),
+    }),
     {},
   );
 
@@ -67,12 +75,7 @@ const Movie = ({ data: { estrenos } }) => {
   return (
     <Layout>
       <SEO title={movie.title} />
-      <Link to="/">
-        <GoBack>
-          <ChevronLeft />
-          <Label2>Volver a todas las películas</Label2>
-        </GoBack>
-      </Link>
+      <BackTo route="/">Volver a todas las películas</BackTo>
 
       <H2>{movie.title}</H2>
 
