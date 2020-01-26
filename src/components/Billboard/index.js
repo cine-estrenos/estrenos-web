@@ -44,9 +44,8 @@ const Billboard = () => {
 
       <Body>
         {movies.map((movie) => (
-          <Link to={`/peliculas/${movie.slug}`}>
+          <Link key={movie.id} to={`/peliculas/${movie.slug}`}>
             <figure
-              key={movie.id}
               className={hoveredMovieId === '' ? '' : hoveredMovieId === movie.id ? 'focus' : 'blur'}
               onMouseEnter={() => setHoveredMovieId(movie.id)}
               onMouseLeave={() => setHoveredMovieId('')}

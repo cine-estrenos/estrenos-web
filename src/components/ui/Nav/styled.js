@@ -34,17 +34,24 @@ export const Container = styled.nav`
 
     @media ${media.tablet} {
       grid-auto-flow: column;
-      grid-gap: ${rem('32px')};
-      grid-template-columns: auto ${rem('230px')};
+      grid-gap: ${rem('24px')};
+      grid-template-columns: auto ${rem('240px')} ${rem('71px')};
     }
 
-    ul {
-      display: grid;
-      grid-auto-flow: row;
+    .login {
+      width: 100%;
+      height: 100%;
 
-      @media ${media.tablet} {
-        grid-auto-flow: column;
-        grid-gap: ${rem('32px')};
+      display: flex;
+      justify-content: flex-end;
+
+      .loader {
+        width: 100%;
+        height: 100%;
+
+        rect {
+          clip-path: none;
+        }
       }
     }
   }

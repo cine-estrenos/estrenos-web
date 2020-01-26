@@ -25,6 +25,16 @@ module.exports = {
     'gatsby-plugin-use-dark-mode',
     'gatsby-plugin-styled-components',
     {
+      resolve: 'gatsby-plugin-firebase',
+      options: {
+        features: {
+          auth: true,
+          database: true,
+          firestore: true,
+        },
+      },
+    },
+    {
       resolve: 'gatsby-source-graphql',
       options: {
         typeName: 'ESTRENOS',
