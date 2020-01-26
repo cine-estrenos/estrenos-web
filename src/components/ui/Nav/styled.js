@@ -35,7 +35,7 @@ export const Container = styled.nav`
     @media ${media.tablet} {
       grid-auto-flow: column;
       grid-gap: ${rem('24px')};
-      grid-template-columns: auto ${rem('240px')} ${rem('71px')};
+      grid-template-columns: auto ${rem('240px')} ${rem('75px')};
     }
 
     .login {
