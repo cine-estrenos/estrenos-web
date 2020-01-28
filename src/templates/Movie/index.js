@@ -55,10 +55,7 @@ const Movie = ({ data: { estrenos } }) => {
       ...acc,
       [chain]: cinemas
         .filter(({ chain: cinemaChain }) => chain === cinemaChain)
-        .map((cinema) => {
-          const enabled = shows.some(({ cinemaId }) => cinemaId === cinema.id);
-          return { ...cinema, disabled: !enabled };
-        }),
+        .filter((cinema) => shows.some(({ cinemaId }) => cinemaId === cinema.id)),
     }),
     {},
   );
