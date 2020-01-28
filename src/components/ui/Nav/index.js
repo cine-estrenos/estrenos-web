@@ -26,7 +26,7 @@ const query = graphql`
   }
 `;
 
-const Nav = ({ handleToggleDarkMode }) => {
+const Nav = ({ handleToggleDarkMode, location }) => {
   const {
     estrenos: { movies },
   } = useStaticQuery(query);
@@ -41,13 +41,12 @@ const Nav = ({ handleToggleDarkMode }) => {
           const { displayName, photoURL, email, uid } = user;
           setUserLogged({ displayName, photoURL, email, uid });
           setIsLoadingLogin(false);
-        } else if (!user) {
-          setIsLoadingLogin(false);
-          navigate('/');
-        }
+        } else if (!user) setIsLoadingLogin(false);
+
+        if (!user && location.pathname.includes('user')) navigate('/');
       });
     }
-  }, [firebase, userLogged]);
+  }, [firebase, location.pathname, userLogged]);
 
   const handleLogin = () => {
     const provider = new firebase.auth.GoogleAuthProvider();

@@ -3,6 +3,7 @@ import useDarkMode from 'use-dark-mode';
 import { ThemeProvider } from 'styled-components';
 import { LightTheme, DarkTheme, BaseProvider } from 'baseui';
 import PropTypes from 'prop-types';
+import { Location } from '@reach/router';
 
 // Styles
 import { GlobalStyle } from 'utils/styles/global';
@@ -19,7 +20,7 @@ const Layout = ({ children }) => {
     <BaseProvider theme={darkMode.value ? DarkTheme : LightTheme}>
       <ThemeProvider theme={darkMode.value ? darkTheme : lightTheme}>
         <div className="container">
-          <Nav handleToggleDarkMode={darkMode.toggle} />
+          <Location>{({ location }) => <Nav handleToggleDarkMode={darkMode.toggle} location={location} />}</Location>
           <main>{children}</main>
           <Footer />
           <GlobalStyle />
