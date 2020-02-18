@@ -6,6 +6,7 @@ import React, { useEffect, useRef } from 'react';
 import { graphql, useStaticQuery, Link } from 'gatsby';
 import { Button, SIZE } from 'baseui/button';
 import { H2, Paragraph2, Label4 } from 'baseui/typography';
+import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
 
 // Styled Components
 import { Container } from './styled';
@@ -63,6 +64,14 @@ const Header = () => {
     }
   }, [videoRef]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const handleCallToAction = () => {
+    trackCustomEvent({ category: 'Home - Call To Action', action: 'click', value: movie.title });
+  };
+
+  const handleVideoClick = () => {
+    trackCustomEvent({ category: 'Home - Trailer', action: 'play', value: movie.title });
+  };
+
   return (
     <Container image={movie.backdrop}>
       <article>
@@ -79,13 +88,13 @@ const Header = () => {
         <Paragraph2 className="description">{movie.description}</Paragraph2>
 
         <div className="btn-container">
-          <Link to={`/peliculas/${movie.slug}`}>
+          <Link to={`/peliculas/${movie.slug}`} onClick={handleCallToAction}>
             <Button size={SIZE.large}>Comprar entradas</Button>
           </Link>
         </div>
       </article>
 
-      <figure>
+      <figure onClick={handleVideoClick}>
         <video ref={videoRef} preload="auto" />
       </figure>
     </Container>

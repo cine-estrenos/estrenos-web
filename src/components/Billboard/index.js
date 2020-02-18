@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import { graphql, useStaticQuery, Link } from 'gatsby';
 import { H5, Label3 } from 'baseui/typography';
+import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
 
 // Styled Components
 import { Container, Header, Body } from './styled';
@@ -30,6 +31,10 @@ const Billboard = () => {
   } = useStaticQuery(query);
   const [hoveredMovieId, setHoveredMovieId] = useState('');
 
+  const handlePosterClick = (movie) => {
+    trackCustomEvent({ category: 'Home - Poster', action: 'click', value: movie.title });
+  };
+
   return (
     <Container>
       <Header>
@@ -44,9 +49,8 @@ const Billboard = () => {
 
       <Body>
         {movies.map((movie) => (
-          <Link to={`/peliculas/${movie.slug}`}>
+          <Link key={movie.id} to={`/peliculas/${movie.slug}`} onClick={() => handlePosterClick(movie)}>
             <figure
-              key={movie.id}
               className={hoveredMovieId === '' ? '' : hoveredMovieId === movie.id ? 'focus' : 'blur'}
               onMouseEnter={() => setHoveredMovieId(movie.id)}
               onMouseLeave={() => setHoveredMovieId('')}
