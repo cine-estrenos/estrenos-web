@@ -59,6 +59,15 @@ module.exports = {
       },
     },
 
+    // Sentry Error Logging
+    {
+      resolve: 'gatsby-plugin-sentry',
+      options: {
+        environment: process.env.NODE_ENV,
+        dsn: process.env.GATSBY_SENTRY_DSN,
+      },
+    },
+
     // PWA Manifest
     {
       resolve: 'gatsby-plugin-manifest',

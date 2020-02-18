@@ -13,7 +13,6 @@ export const GlobalStyle = createGlobalStyle`
 
   html {
     word-break: break-word;
-    scroll-behavior: smooth;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: transparent;
@@ -21,7 +20,6 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     min-height: 100vh;
-    overscroll-behavior: contain;
     text-rendering: optimizeLegibility;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
