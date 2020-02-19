@@ -6,7 +6,7 @@ dotenv.config();
 
 // Constants
 const folderPaths = ['pages', 'utils', 'components', 'images'];
-const authors = ['Leonardo Galante', 'Hugo Farji', 'Gonzalo Pozzo', 'Juan Gomez', 'Antonela Bianculli', 'Rosario'];
+const authors = ['Leonardo Galante', 'Hugo Farji', 'Gonzalo Pozzo', 'Juan Gomez', 'Antonela Bianculli', 'Rosario Maldonado'];
 
 const rootImportOptions = folderPaths.reduce(
   (acc, folderPath) => ({
