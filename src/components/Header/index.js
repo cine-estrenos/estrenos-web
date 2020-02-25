@@ -4,15 +4,16 @@
 
 import React, { useEffect, useRef } from 'react';
 import { graphql, useStaticQuery, Link } from 'gatsby';
-import { Button, SIZE } from 'baseui/button';
-import { H2, Paragraph2, Label4 } from 'baseui/typography';
+import { SIZE } from 'baseui/button';
+import { H3, Paragraph2 } from 'baseui/typography';
 import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
 
 // Styled Components
 import { Container } from './styled';
+import { StyledButton } from 'components/styled/Button';
 
 // Components
-import Rating from 'components/ui/Rating';
+import GenreRating from 'components/ui/GenreRating';
 
 const query = graphql`
   query MostPopularMovie {
@@ -75,21 +76,14 @@ const Header = () => {
   return (
     <Container image={movie.backdrop}>
       <article>
-        <H2>{movie.title}</H2>
-
-        <div className="info">
-          <Label4 className="category">
-            {movie.genres.length && movie.genres[0].value}
-            {movie.genres.length && movie.votes !== '0' && ' | '}
-          </Label4>
-          {movie.votes !== '0' && <Rating votes={movie.votes} />}
-        </div>
+        <H3>{movie.title}</H3>
+        <GenreRating genres={movie.genres} votes={movie.votes} />
 
         <Paragraph2 className="description">{movie.description}</Paragraph2>
 
         <div className="btn-container">
           <Link to={`/peliculas/${movie.slug}`} onClick={handleCallToAction}>
-            <Button size={SIZE.large}>Comprar entradas</Button>
+            <StyledButton size={SIZE.large}>Comprar entradas</StyledButton>
           </Link>
         </div>
       </article>
