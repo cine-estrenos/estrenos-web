@@ -4,6 +4,11 @@ import { Select, TYPE } from 'baseui/select';
 import { H1, Label2 } from 'baseui/typography';
 import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
 
+import User from 'components/ui/Icons/User';
+import Avatar from 'components/ui/Avatar';
+
+import { useUser, useSession } from 'session/hooks';
+
 // Styled Components
 import { Container } from './styled';
 
@@ -22,6 +27,8 @@ const Nav = ({ handleToggleDarkMode }) => {
   const {
     estrenos: { movies },
   } = useStaticQuery(query);
+  const user = useUser();
+  const { signIn, signOut } = useSession();
 
   const handleSelectChange = ({ value }) => {
     trackCustomEvent({ category: 'Nav - Movie Dropdown', action: 'click', value: value[0].title });
@@ -59,6 +66,12 @@ const Nav = ({ handleToggleDarkMode }) => {
           valueKey="slug"
           onChange={handleSelectChange}
         />
+
+        {user ? (
+          <Avatar alt="Foto de perfíl del usuario" src={user.photoURL} onClick={signOut} />
+        ) : (
+          <User onClick={signIn} />
+        )}
       </div>
     </Container>
   );

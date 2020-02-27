@@ -11,6 +11,7 @@ import { darkTheme, lightTheme } from 'utils/styles/theme';
 // Components
 import Nav from 'components/ui/Nav';
 import Footer from 'components/ui/Footer';
+import { Provider as SessionProvider } from 'session/context';
 
 const Layout = ({ children }) => {
   const darkMode = useDarkMode(true);
@@ -18,12 +19,14 @@ const Layout = ({ children }) => {
   return (
     <BaseProvider theme={darkMode.value ? DarkTheme : LightTheme}>
       <ThemeProvider theme={darkMode.value ? darkTheme : lightTheme}>
-        <div className="container">
-          <Nav handleToggleDarkMode={darkMode.toggle} />
-          <main>{children}</main>
-          <Footer />
-          <GlobalStyle />
-        </div>
+        <SessionProvider>
+          <div className="container">
+            <Nav handleToggleDarkMode={darkMode.toggle} />
+            <main>{children}</main>
+            <Footer />
+            <GlobalStyle />
+          </div>
+        </SessionProvider>
       </ThemeProvider>
     </BaseProvider>
   );
