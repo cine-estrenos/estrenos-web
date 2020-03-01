@@ -23,6 +23,7 @@ module.exports = {
           ['pages', './src/pages/'],
           ['utils', './src/utils/'],
           ['components', './src/components/'],
+          ['session', './src/session/'],
           ['images', './src/images/'],
         ],
         extensions: ['.js'],
