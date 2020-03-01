@@ -10,9 +10,9 @@ import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
 
 // Styled Components
 import { Container } from './styled';
-import { StyledButton } from 'components/styled/Button';
 
 // Components
+import Button from 'components/ui/Button';
 import GenreRating from 'components/ui/GenreRating';
 
 const query = graphql`
@@ -83,7 +83,7 @@ const Header = () => {
 
         <div className="btn-container">
           <Link to={`/peliculas/${movie.slug}`} onClick={handleCallToAction}>
-            <StyledButton size={SIZE.large}>Comprar entradas</StyledButton>
+            <Button size={SIZE.large}>Comprar entradas</Button>
           </Link>
         </div>
       </article>

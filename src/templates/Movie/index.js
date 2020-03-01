@@ -9,9 +9,6 @@ import 'dayjs/locale/es';
 import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
 
 // Styled Components
-import { StyledSelect } from 'components/styled/Select';
-import { StyledDatePicker } from 'components/styled/DatePicker';
-import { StyledButton } from 'components/styled/Button';
 import {
   Container,
   Poster,
@@ -35,9 +32,15 @@ import SEO from 'components/ui/Seo';
 import Layout from 'components/ui/Layout';
 import BackTo from 'components/ui/BackTo';
 import GenreRating from 'components/ui/GenreRating';
+import Select from 'components/ui/Select';
+import Button from 'components/ui/Button';
+import DatePicker from 'components/ui/DatePicker';
 
 // Utils
 import { parseDate } from 'utils';
+
+// Selectors
+import { getChainIds, getAvailableCinemas, getChainsNames, getAvailableBranches } from './selectors';
 
 // Setup dayjs locale
 dayjs.locale('es');
@@ -100,22 +103,11 @@ const Movie = ({ data: { estrenos } }) => {
   const [showsToFilter, setShowsToFilter] = useState(shows);
 
   // Constants
-  const chainIds = cinemas.reduce(
-    (acc, cinema) => ({ ...acc, [cinema.chain]: [...(acc[cinema.chain] || []), cinema.id] }),
-    {},
-  );
+  const chainIds = getChainIds(cinemas);
+  const availableCinemas = getAvailableCinemas(cinemas, shows);
 
-  const chains = [
-    ...new Set(
-      cinemas.filter((cinema) => shows.some(({ cinemaId }) => cinemaId === cinema.id)).map(({ chain }) => chain),
-    ),
-  ].map((chain) => ({ chain }));
-
-  const branches = selectedCinema.length
-    ? cinemas
-        .filter((cinema) => shows.some(({ cinemaId }) => cinemaId === cinema.id))
-        .filter((cinema) => cinema.chain === selectedCinema[0].chain)
-    : [];
+  const chains = getChainsNames(availableCinemas);
+  const branches = getAvailableBranches(selectedCinema, availableCinemas);
 
   const DATA = showsToFilter.map((show) => [
     parseDate(show.date),
@@ -238,7 +230,7 @@ const Movie = ({ data: { estrenos } }) => {
           <Header>
             <div>
               <Label2 className="label">1. Selecciona tu cine</Label2>
-              <StyledSelect
+              <Select
                 labelKey="chain"
                 options={chains}
                 placeholder={chains[0].chain}
@@ -250,7 +242,7 @@ const Movie = ({ data: { estrenos } }) => {
 
             <div>
               <Label2 className="label">2. Selecciona tu sucursal</Label2>
-              <StyledSelect
+              <Select
                 disabled={!Boolean(selectedCinema.length)}
                 labelKey="name"
                 options={branches}
@@ -263,7 +255,7 @@ const Movie = ({ data: { estrenos } }) => {
 
             <div>
               <Label2 className="label">3. Selecciona tu día</Label2>
-              <StyledDatePicker
+              <DatePicker
                 clearable
                 disabled={!Boolean(selectedBranch.length)}
                 includeDates={includeDates}
@@ -304,9 +296,9 @@ const Movie = ({ data: { estrenos } }) => {
           </Body>
 
           <Footer>
-            <StyledButton disabled={!Boolean(selectedShowLink)} onClick={handleClickBuyTicket}>
+            <Button disabled={!Boolean(selectedShowLink)} onClick={handleClickBuyTicket}>
               Comprar entradas
-            </StyledButton>
+            </Button>
 
             {selectedShowSeats && (
               <Label2 className="label">
