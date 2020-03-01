@@ -24,41 +24,8 @@ export const Container = styled.header`
       padding-top: ${rem('36px')};
     }
 
-    h2 {
-      font-weight: 600;
+    h3 {
       margin-bottom: ${rem('12px')};
-
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-
-      @media ${media.tablet} {
-        font-size: ${rem('52px')};
-      }
-    }
-
-    .info {
-      display: flex;
-      align-items: center;
-
-      font-weight: 600;
-      font-size: ${rem('12px')};
-
-      text-transform: uppercase;
-      margin-bottom: ${rem('16px')};
-
-      @media ${media.tablet} {
-        margin-bottom: ${rem('38px')};
-      }
-
-      .category {
-        font-weight: 600;
-        display: inline-block;
-      }
-
-      svg {
-        transition: all 400ms ease;
-      }
     }
 
     .description {
@@ -89,8 +56,5 @@ export const Container = styled.header`
         flex: 1;
       }
     }
-  }
-
-  figure {
   }
 `;
