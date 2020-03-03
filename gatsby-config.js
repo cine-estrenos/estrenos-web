@@ -5,8 +5,29 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 // Constants
-const folderPaths = ['pages', 'utils', 'components', 'images'];
-const authors = ['Leonardo Galante', 'Hugo Farji', 'Gonzalo Pozzo', 'Juan Gomez', 'Antonela Bianculli', 'Rosario Maldonado'];
+const {
+  NODE_ENV,
+  GATSBY_API_URL,
+  GATSBY_SENTRY_DSN,
+  GATSBY_ANALYTICS_TRACKING_ID,
+  GATSBY_FIREBASE_API_KEY,
+  GATSBY_FIREBASE_AUTH_DOMAIN,
+  GATSBY_FIREBASE_DATABASE_URL,
+  GATSBY_FIREBASE_PROJECT_ID,
+  GATSBY_FIREBASE_STORAGE_BUCKET,
+  GATSBY_FIREBASE_MESSAGING_SENDER_ID,
+  GATSBY_FIREBASE_APP_ID,
+} = process.env;
+
+const folderPaths = ['pages', 'utils', 'components', 'session', 'images'];
+const authors = [
+  'Leonardo Galante',
+  'Hugo Farji',
+  'Gonzalo Pozzo',
+  'Juan Gomez',
+  'Antonela Bianculli',
+  'Rosario Maldonado',
+];
 
 const rootImportOptions = folderPaths.reduce(
   (acc, folderPath) => ({
@@ -35,7 +56,7 @@ module.exports = {
       options: {
         typeName: 'ESTRENOS',
         fieldName: 'estrenos',
-        url: `${process.env.GATSBY_API_URL}/graphql`,
+        url: `${GATSBY_API_URL}/graphql`,
       },
     },
 
@@ -51,11 +72,27 @@ module.exports = {
       options: { prefix: '_' },
     },
 
+    // Firebasee
+    {
+      resolve: 'gatsby-plugin-firebase',
+      options: {
+        credentials: {
+          apiKey: GATSBY_FIREBASE_API_KEY,
+          authDomain: GATSBY_FIREBASE_AUTH_DOMAIN,
+          databaseURL: GATSBY_FIREBASE_DATABASE_URL,
+          projectId: GATSBY_FIREBASE_PROJECT_ID,
+          storageBucket: GATSBY_FIREBASE_STORAGE_BUCKET,
+          messagingSenderId: GATSBY_FIREBASE_MESSAGING_SENDER_ID,
+          appId: GATSBY_FIREBASE_APP_ID,
+        },
+      },
+    },
+
     // Analytics
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: process.env.GATSBY_ANALYTICS_TRACKING_ID,
+        trackingId: GATSBY_ANALYTICS_TRACKING_ID,
       },
     },
 
@@ -63,8 +100,8 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-sentry',
       options: {
-        environment: process.env.NODE_ENV,
-        dsn: process.env.GATSBY_SENTRY_DSN,
+        environment: NODE_ENV,
+        dsn: GATSBY_SENTRY_DSN,
       },
     },
 

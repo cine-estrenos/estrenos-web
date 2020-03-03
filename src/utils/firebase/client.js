@@ -1,4 +1,4 @@
-import firebase from 'firebase/app';
+import firebase from 'gatsby-plugin-firebase';
 
 import 'firebase/auth';
 import 'firebase/firestore';

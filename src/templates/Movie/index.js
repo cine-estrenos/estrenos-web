@@ -31,10 +31,10 @@ import {
 import SEO from 'components/ui/Seo';
 import Layout from 'components/ui/Layout';
 import BackTo from 'components/ui/BackTo';
-import GenreRating from 'components/ui/GenreRating';
 import Select from 'components/ui/Select';
 import Button from 'components/ui/Button';
 import DatePicker from 'components/ui/DatePicker';
+import GenreRating from 'components/ui/GenreRating';
 
 // Utils
 import { parseDate } from 'utils';
@@ -45,50 +45,8 @@ import { getChainIds, getAvailableCinemas, getChainsNames, getAvailableBranches 
 // Setup dayjs locale
 dayjs.locale('es');
 
-export const query = graphql`
-  query($id: String!) {
-    estrenos {
-      movie(id: $id) {
-        id
-        title
-        minAge
-        votes
-        length
-        poster
-        description
-        cast {
-          actors
-          directors
-        }
-        genres {
-          emoji
-          value
-        }
-      }
-      cinemas {
-        id
-        name
-        chain
-      }
-      shows(movieId: $id) {
-        id
-        time
-        date
-        link
-        format
-        version
-        cinemaId
-        seats {
-          total
-          available
-        }
-      }
-    }
-  }
-`;
-
-const Movie = ({ data: { estrenos } }) => {
-  const { movie, cinemas, shows } = estrenos;
+const Movie = ({ data: { estrenos }, pageContext: { cinemas } }) => {
+  const { movie, shows } = estrenos;
 
   const [selectedCinema, setSelectedCinema] = useState([]);
   const [selectedBranch, setSelectedBranch] = useState([]);
@@ -311,5 +269,42 @@ const Movie = ({ data: { estrenos } }) => {
     </Layout>
   );
 };
+
+export const query = graphql`
+  query($id: String!) {
+    estrenos {
+      movie(id: $id) {
+        id
+        title
+        minAge
+        votes
+        length
+        poster
+        description
+        cast {
+          actors
+          directors
+        }
+        genres {
+          emoji
+          value
+        }
+      }
+      shows(movieId: $id) {
+        id
+        time
+        date
+        link
+        format
+        version
+        cinemaId
+        seats {
+          total
+          available
+        }
+      }
+    }
+  }
+`;
 
 export default Movie;
