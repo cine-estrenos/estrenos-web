@@ -9,26 +9,31 @@ exports.createPages = async function({ actions, graphql }) {
             id
             slug
           }
+          cinemas {
+            id
+            name
+            chain
+          }
         }
       }
     `);
 
     if (results.errors) {
-      console.log('TCL: results.errors', results.errors);
+      console.error('Result errors in createPage', results.errors);
     }
 
     results.data.estrenos.movies.forEach((edge) => {
       const { id, slug } = edge;
 
       createPage({
-        context: { id, slug },
         path: `/peliculas/${slug}`,
-        component: require.resolve(`./src/templates/Movie/index.js`),
+        component: require.resolve(`./src/templates/movie/index.js`),
+        context: { id, slug, cinemas: results.data.estrenos.cinemas },
       });
     });
 
     createRedirect({ fromPath: '/peliculas', toPath: '/', isPermanent: true });
   } catch (error) {
-    console.log('Error in static page creation', error);
+    console.error('Error in static page creation', error);
   }
 };
