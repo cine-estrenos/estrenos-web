@@ -1,3 +1,12 @@
+const got = require('got');
+const dotenv = require('dotenv');
+
+// Dotenv
+dotenv.config();
+
+// Constants
+const { GATSBY_API_URL } = process.env;
+
 exports.createPages = async function({ actions, graphql }) {
   const { createPage, createRedirect } = actions;
 
@@ -22,15 +31,21 @@ exports.createPages = async function({ actions, graphql }) {
       console.error('Result errors in createPage', results.errors);
     }
 
-    results.data.estrenos.movies.forEach((edge) => {
+    const { movies } = results.data.estrenos;
+
+    for await (const edge of movies) {
       const { id, slug } = edge;
+      const [movie, shows] = await Promise.all([
+        got(`${GATSBY_API_URL}/movies/${id}`).json(),
+        got(`${GATSBY_API_URL}/shows/${id}`).json(),
+      ]);
 
       createPage({
         path: `/peliculas/${slug}`,
         component: require.resolve(`./src/templates/movie/index.js`),
-        context: { id, slug, cinemas: results.data.estrenos.cinemas },
+        context: { id, slug, movie, shows, cinemas: results.data.estrenos.cinemas },
       });
-    });
+    }
 
     createRedirect({ fromPath: '/peliculas', toPath: '/', isPermanent: true });
   } catch (error) {
