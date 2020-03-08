@@ -1,4 +1,5 @@
 const got = require('got');
+const path = require('path');
 const dotenv = require('dotenv');
 
 // Dotenv
@@ -44,7 +45,7 @@ exports.createPages = async function({ actions, graphql }) {
       createPage({
         path: `/peliculas/${slug}`,
         context: { id, slug, cinemas, movie, shows },
-        component: require.resolve(`./src/templates/movie/index.js`),
+        component: path.resolve(`./src/templates/movie/index.js`),
       });
     }
 
