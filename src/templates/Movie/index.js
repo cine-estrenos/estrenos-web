@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { graphql } from 'gatsby';
 
 import { H2, Label2, Paragraph2 } from 'baseui/typography';
 import { StyledTable, StyledBody, StyledCell } from 'baseui/table';
@@ -45,9 +44,7 @@ import { getChainIds, getAvailableCinemas, getChainsNames, getAvailableBranches 
 // Setup dayjs locale
 dayjs.locale('es');
 
-const Movie = ({ data: { estrenos }, pageContext: { cinemas } }) => {
-  const { movie, shows } = estrenos;
-
+const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
   const [selectedCinema, setSelectedCinema] = useState([]);
   const [selectedBranch, setSelectedBranch] = useState([]);
 
@@ -270,6 +267,7 @@ const Movie = ({ data: { estrenos }, pageContext: { cinemas } }) => {
   );
 };
 
+/*
 export const query = graphql`
   query($id: String!) {
     estrenos {
@@ -306,5 +304,6 @@ export const query = graphql`
     }
   }
 `;
+*/
 
 export default Movie;
