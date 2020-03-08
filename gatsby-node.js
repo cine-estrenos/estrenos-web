@@ -45,7 +45,7 @@ exports.createPages = async function({ actions, graphql }) {
       createPage({
         path: `/peliculas/${slug}`,
         context: { id, slug, cinemas, movie, shows },
-        component: path.resolve(`./src/templates/movie/index.js`),
+        component: path.resolve(`src/templates/movie/index.js`),
       });
     }
 
