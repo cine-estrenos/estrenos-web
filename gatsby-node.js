@@ -7,6 +7,7 @@ dotenv.config();
 
 // Constants
 const { GATSBY_API_URL } = process.env;
+const movieTemplate = path.resolve(`src/templates/movie/index.js`);
 
 exports.createPages = async function({ actions, graphql }) {
   const { createPage, createRedirect } = actions;
@@ -41,8 +42,6 @@ exports.createPages = async function({ actions, graphql }) {
         got(`${GATSBY_API_URL}/movies/${id}`).json(),
         got(`${GATSBY_API_URL}/shows/${id}`).json(),
       ]);
-
-      const movieTemplate = path.resolve(`src/templates/movie/index.js`);
 
       createPage({
         component: movieTemplate,
