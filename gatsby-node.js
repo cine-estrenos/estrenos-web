@@ -42,10 +42,12 @@ exports.createPages = async function({ actions, graphql }) {
         got(`${GATSBY_API_URL}/shows/${id}`).json(),
       ]);
 
+      const movieTemplate = path.resolve(`src/templates/movie/index.js`);
+
       createPage({
+        component: movieTemplate,
         path: `/peliculas/${slug}`,
         context: { id, slug, cinemas, movie, shows },
-        component: path.resolve(`src/templates/movie/index.js`),
       });
     }
 
