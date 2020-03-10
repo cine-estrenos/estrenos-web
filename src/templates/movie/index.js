@@ -45,6 +45,7 @@ import { getChainIds, getAvailableCinemas, getChainsNames, getAvailableBranches 
 dayjs.locale('es');
 
 const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
+  // React hooks
   const [selectedCinema, setSelectedCinema] = useState([]);
   const [selectedBranch, setSelectedBranch] = useState([]);
 

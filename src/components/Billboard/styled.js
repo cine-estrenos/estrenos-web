@@ -31,17 +31,22 @@ export const Header = styled.header`
   }
 
   .filters-container {
+    min-width: ${rem('220px')};
   }
 `;
 
 export const Body = styled.div`
-  display: grid;
-  grid-row-gap: ${rem('32px')};
-  grid-column-gap: ${rem('24px')};
-  grid-template-columns: repeat(auto-fill, ${rem('140px')});
+  min-height: ${rem('900px')};
 
-  @media ${media.tablet} {
-    grid-template-columns: repeat(auto-fill, ${rem('180px')});
+  > div {
+    display: grid;
+    grid-row-gap: ${rem('32px')};
+    grid-column-gap: ${rem('24px')};
+    grid-template-columns: repeat(auto-fill, ${rem('140px')});
+
+    @media ${media.tablet} {
+      grid-template-columns: repeat(auto-fill, ${rem('180px')});
+    }
   }
 
   figure {
@@ -70,6 +75,7 @@ export const Body = styled.div`
       position: relative;
       height: ${rem('230px')};
       margin-bottom: ${rem('8px')};
+      border-radius: 6px;
 
       @media ${media.tablet} {
         height: ${rem('270px')};
