@@ -20,11 +20,6 @@ exports.createPages = async function({ actions, graphql }) {
             id
             slug
           }
-          cinemas {
-            id
-            name
-            chain
-          }
         }
       }
     `);
@@ -33,7 +28,8 @@ exports.createPages = async function({ actions, graphql }) {
       console.error('Result errors in createPage', results.errors);
     }
 
-    const { movies, cinemas } = results.data.estrenos;
+    const { movies } = results.data.estrenos;
+    const cinemas = await got(`${GATSBY_API_URL}/cinemas`).json();
 
     for await (const edge of movies) {
       const { id, slug } = edge;

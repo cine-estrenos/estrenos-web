@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import { H2, Label2, Paragraph2 } from 'baseui/typography';
+import { H2, Label1, Label2, Paragraph2 } from 'baseui/typography';
 import { StyledTable, StyledBody, StyledCell } from 'baseui/table';
+import ReactMapboxGl, { Layer, Feature, Popup } from 'react-mapbox-gl';
 
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
@@ -24,6 +25,7 @@ import {
   TimeCell,
   FormatHeadCell,
   FormatCell,
+  StyledPopup,
 } from './styled';
 
 // Components
@@ -44,19 +46,27 @@ import { getChainIds, getAvailableCinemas, getChainsNames, getAvailableBranches 
 // Setup dayjs locale
 dayjs.locale('es');
 
+// Constants
+const Map = ReactMapboxGl({ accessToken: process.env.GATSBY_MAPBOX_API_KEY });
+const defaultMapPosition = [-58.4515826, -34.6076124];
+
 const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
-  // React hooks
+  // React hooks - cinemas
   const [selectedCinema, setSelectedCinema] = useState([]);
   const [selectedBranch, setSelectedBranch] = useState([]);
 
+  // React hooks - dates
   const [selectedDate, setSelectedDate] = useState(null);
   const [includeDates, setIncludeDates] = useState([]);
 
+  // React hooks - shows
+  const [showsToFilter, setShowsToFilter] = useState(shows);
   const [selectedShowId, setSelectedShowId] = useState(null);
   const [selectedShowLink, setSelectedShowLink] = useState(null);
   const [selectedShowSeats, setSelectedShowSeats] = useState(null);
 
-  const [showsToFilter, setShowsToFilter] = useState(shows);
+  // React hooks - maps
+  const [mapCenter, setMapCenter] = useState(defaultMapPosition);
 
   // Constants
   const chainIds = getChainIds(cinemas);
@@ -112,6 +122,13 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
     }
   }, [selectedDate, selectedBranch, selectedCinema]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    if (!selectedBranch.length) return;
+
+    const [{ lat, lon }] = selectedBranch;
+    setMapCenter([lon, lat]);
+  }, [selectedBranch]);
+
   // Handlers
   const handleChangeCinema = ({ value }) => {
     setSelectedBranch([]);
@@ -138,6 +155,18 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
     });
 
     window.open(selectedShowLink);
+  };
+
+  const handleMapToggleHover = ({ map }, cursor) => {
+    map._canvas.style.cursor = cursor;
+  };
+
+  const handleMapCinemaClick = (cinema) => {
+    const newSelectedCinema = [{ chain: cinema.chain }];
+    const newSelectedBranch = [cinema];
+
+    handleChangeCinema({ value: newSelectedCinema });
+    handleChangeBranch({ value: newSelectedBranch });
   };
 
   return (
@@ -236,7 +265,7 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
                   {DATA.map((row, index) => (
                     <TableRow
                       key={index}
-                      selectable={Boolean(selectedBranch.length)}
+                      selectable={selectedBranch.length ? 'true' : ''}
                       selected={selectedShowId === row[5]}
                       onClick={() => handleClickRow(row)}
                     >
@@ -263,48 +292,48 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
             )}
           </Footer>
         </div>
+
+        <div className="map-container">
+          <Label1 className="label">Mapa</Label1>
+          <Paragraph2 className="description">También podes elegir tu cine desde el mapa:</Paragraph2>
+
+          <Map
+            center={mapCenter}
+            containerStyle={{ width: '100%', height: '100%' }}
+            style="mapbox://styles/mapbox/streets-v9" // eslint-disable-line react/style-prop-object
+            zoom={[12]}
+          >
+            <Layer id="marker" layout={{ 'icon-image': 'marker-15', 'icon-size': 2 }} type="symbol">
+              {availableCinemas.map((availableCinema) => {
+                return (
+                  <Feature
+                    key={availableCinema.id}
+                    coordinates={[availableCinema.lon, availableCinema.lat]}
+                    onClick={() => handleMapCinemaClick(availableCinema)}
+                    onMouseEnter={(mapBox) => handleMapToggleHover(mapBox, 'pointer')}
+                    onMouseLeave={(mapBox) => handleMapToggleHover(mapBox, '')}
+                  />
+                );
+              })}
+            </Layer>
+            {selectedBranch.length && (
+              <Popup key={selectedBranch[0].id} coordinates={[selectedBranch[0].lon, selectedBranch[0].lat]}>
+                <StyledPopup>
+                  <h3>
+                    {selectedBranch[0].chain} {selectedBranch[0].name}
+                  </h3>
+                  <p>
+                    Funciones desde el {dayjs(showsToFilter[0].date).format('DD[/]MM')} hasta el{' '}
+                    {dayjs(showsToFilter[showsToFilter.length - 1].date).format('DD[/]MM')}
+                  </p>
+                </StyledPopup>
+              </Popup>
+            )}
+          </Map>
+        </div>
       </Container>
     </Layout>
   );
 };
-
-/*
-export const query = graphql`
-  query($id: String!) {
-    estrenos {
-      movie(id: $id) {
-        id
-        title
-        minAge
-        votes
-        length
-        poster
-        description
-        cast {
-          actors
-          directors
-        }
-        genres {
-          emoji
-          value
-        }
-      }
-      shows(movieId: $id) {
-        id
-        time
-        date
-        link
-        format
-        version
-        cinemaId
-        seats {
-          total
-          available
-        }
-      }
-    }
-  }
-`;
-*/
 
 export default Movie;

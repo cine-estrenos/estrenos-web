@@ -11,6 +11,7 @@ export const Container = styled.div`
 
   @media ${media.desktop} {
     grid-gap: ${rem('65px')};
+    grid-template-rows: 1fr 1fr;
     grid-template-columns: ${rem('500px')} 1fr;
   }
 
@@ -61,6 +62,11 @@ export const Container = styled.div`
   .label {
     margin-bottom: ${rem('10px')};
   }
+
+  .map-container {
+    grid-area: 2 / 1 / 3 / 3;
+    height: ${rem('600px')};
+  }
 `;
 
 export const Header = styled.div`
@@ -93,7 +99,7 @@ export const TableRow = styled(StyledRow)`
   }
 
   ${({ theme, selected }) => {
-    if (!selected) return;
+    if (selected) return;
 
     return `
       background-color: ${selected ? theme.text : 'transparent'};
@@ -148,4 +154,12 @@ export const Footer = styled.div`
     margin-bottom: 0;
     margin-top: ${rem('14px')};
   }
+`;
+
+export const StyledPopup = styled.div`
+  font-weight: 400;
+  color: ${({ theme }) => theme.color};
+  background: ${({ theme }) => theme.bg};
+  border-radius: 2px;
+  padding: ${rem('5px')};
 `;
