@@ -174,7 +174,7 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
 
       <Container>
         <div>
-          <Poster src={movie.poster.replace('300', '500')} />
+          <Poster alt={movie.title} src={movie.poster.replace('300', '500')} />
         </div>
 
         <div>
