@@ -157,9 +157,7 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
     window.open(selectedShowLink);
   };
 
-  const handleMapToggleHover = ({ map }, cursor) => {
-    map._canvas.style.cursor = cursor;
-  };
+  const handleMapToggleHover = ({ map }, cursor) => Object.assign(map._canvas.style, { cursor });
 
   const handleMapCinemaClick = (cinema) => {
     const newSelectedCinema = [{ chain: cinema.chain }];
