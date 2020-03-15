@@ -47,7 +47,7 @@ import { getChainIds, getAvailableCinemas, getChainsNames, getAvailableBranches 
 dayjs.locale('es');
 
 // Constants
-const Map = ReactMapboxGl({ accessToken: process.env.GATSBY_MAPBOX_API_KEY });
+const Map = typeof window !== `undefined` ? ReactMapboxGl({ accessToken: process.env.GATSBY_MAPBOX_API_KEY }) : null;
 const defaultMapPosition = [-58.4515826, -34.6076124];
 
 const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
@@ -297,39 +297,41 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
           <Label1 className="label">Mapa</Label1>
           <Paragraph2 className="description">También podes elegir tu cine desde el mapa:</Paragraph2>
 
-          <Map
-            center={mapCenter}
-            containerStyle={{ width: '100%', height: '100%' }}
-            style="mapbox://styles/mapbox/streets-v9" // eslint-disable-line react/style-prop-object
-            zoom={[12]}
-          >
-            <Layer id="marker" layout={{ 'icon-image': 'marker-15', 'icon-size': 2 }} type="symbol">
-              {availableCinemas.map((availableCinema) => {
-                return (
-                  <Feature
-                    key={availableCinema.id}
-                    coordinates={[availableCinema.lon, availableCinema.lat]}
-                    onClick={() => handleMapCinemaClick(availableCinema)}
-                    onMouseEnter={(mapBox) => handleMapToggleHover(mapBox, 'pointer')}
-                    onMouseLeave={(mapBox) => handleMapToggleHover(mapBox, '')}
-                  />
-                );
-              })}
-            </Layer>
-            {selectedBranch.length && (
-              <Popup key={selectedBranch[0].id} coordinates={[selectedBranch[0].lon, selectedBranch[0].lat]}>
-                <StyledPopup>
-                  <h3>
-                    {selectedBranch[0].chain} {selectedBranch[0].name}
-                  </h3>
-                  <p>
-                    Funciones desde el {dayjs(showsToFilter[0].date).format('DD[/]MM')} hasta el{' '}
-                    {dayjs(showsToFilter[showsToFilter.length - 1].date).format('DD[/]MM')}
-                  </p>
-                </StyledPopup>
-              </Popup>
-            )}
-          </Map>
+          {Map && (
+            <Map
+              center={mapCenter}
+              containerStyle={{ width: '100%', height: '100%' }}
+              style="mapbox://styles/mapbox/streets-v9" // eslint-disable-line react/style-prop-object
+              zoom={[12]}
+            >
+              <Layer id="marker" layout={{ 'icon-image': 'marker-15', 'icon-size': 2 }} type="symbol">
+                {availableCinemas.map((availableCinema) => {
+                  return (
+                    <Feature
+                      key={availableCinema.id}
+                      coordinates={[availableCinema.lon, availableCinema.lat]}
+                      onClick={() => handleMapCinemaClick(availableCinema)}
+                      onMouseEnter={(mapBox) => handleMapToggleHover(mapBox, 'pointer')}
+                      onMouseLeave={(mapBox) => handleMapToggleHover(mapBox, '')}
+                    />
+                  );
+                })}
+              </Layer>
+              {selectedBranch.length && (
+                <Popup key={selectedBranch[0].id} coordinates={[selectedBranch[0].lon, selectedBranch[0].lat]}>
+                  <StyledPopup>
+                    <h3>
+                      {selectedBranch[0].chain} {selectedBranch[0].name}
+                    </h3>
+                    <p>
+                      Funciones desde el {dayjs(showsToFilter[0].date).format('DD[/]MM')} hasta el{' '}
+                      {dayjs(showsToFilter[showsToFilter.length - 1].date).format('DD[/]MM')}
+                    </p>
+                  </StyledPopup>
+                </Popup>
+              )}
+            </Map>
+          )}
         </div>
       </Container>
     </Layout>

@@ -51,3 +51,18 @@ exports.createPages = async function({ actions, graphql }) {
     console.error('Error in static page creation', error);
   }
 };
+
+exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
+  if (stage === 'build-html') {
+    actions.setWebpackConfig({
+      module: {
+        rules: [
+          {
+            test: /mapbox-gl/,
+            use: loaders.null(),
+          },
+        ],
+      },
+    });
+  }
+};
