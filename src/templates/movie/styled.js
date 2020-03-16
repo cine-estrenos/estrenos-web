@@ -99,7 +99,7 @@ export const TableRow = styled(StyledRow)`
   }
 
   ${({ theme, selected }) => {
-    if (selected) return;
+    if (!selected) return;
 
     return `
       background-color: ${selected ? theme.text : 'transparent'};

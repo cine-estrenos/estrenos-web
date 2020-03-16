@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
+import { Layer, Feature, Popup } from 'react-mapbox-gl';
 import { H2, Label1, Label2, Paragraph2 } from 'baseui/typography';
 import { StyledTable, StyledBody, StyledCell } from 'baseui/table';
-import ReactMapboxGl, { Layer, Feature, Popup } from 'react-mapbox-gl';
 
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
@@ -30,6 +30,7 @@ import {
 
 // Components
 import SEO from 'components/ui/Seo';
+import Map from 'components/ui/Map';
 import Layout from 'components/ui/Layout';
 import BackTo from 'components/ui/BackTo';
 import Select from 'components/ui/Select';
@@ -47,7 +48,6 @@ import { getChainIds, getAvailableCinemas, getChainsNames, getAvailableBranches 
 dayjs.locale('es');
 
 // Constants
-const Map = typeof window !== `undefined` ? ReactMapboxGl({ accessToken: process.env.GATSBY_MAPBOX_API_KEY }) : null;
 const defaultMapPosition = [-58.4515826, -34.6076124];
 
 const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
@@ -85,7 +85,7 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
     show.seats,
   ]);
 
-  // Effects
+  // Effects - Change shows to display when cinema branch changes or a date it's selected
   useEffect(() => {
     if (selectedCinema.length && !selectedBranch.length) {
       const selectedChain = selectedCinema[0].chain;
@@ -110,6 +110,15 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
     }
   }, [selectedCinema, selectedBranch, selectedDate]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Effects - Change map center when branch changes
+  useEffect(() => {
+    if (!selectedBranch.length) return;
+
+    const [{ lat, lon }] = selectedBranch;
+    setMapCenter([lon, lat]);
+  }, [selectedBranch]);
+
+  // Effects - Clear selected show when there's no date, cinema or branch selected
   useEffect(() => {
     if (!selectedDate || !selectedCinema.length || !selectedBranch.length) {
       setSelectedShowId(null);
@@ -122,23 +131,24 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
     }
   }, [selectedDate, selectedBranch, selectedCinema]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Effects - Clear selected branch when a cinema changes
   useEffect(() => {
-    if (!selectedBranch.length) return;
-
-    const [{ lat, lon }] = selectedBranch;
-    setMapCenter([lon, lat]);
-  }, [selectedBranch]);
-
-  // Handlers
-  const handleChangeCinema = ({ value }) => {
     setSelectedBranch([]);
-    setSelectedCinema(value);
-  };
+  }, [selectedCinema]);
+
+  // Effects - Clear selected data when a cinema or branch changes
+  useEffect(() => {
+    setSelectedDate(null);
+  }, [selectedCinema, selectedBranch]);
+
+  // Handlers - Dropdowns
+  const handleChangeCinema = ({ value }) => setSelectedCinema(value);
 
   const handleChangeBranch = ({ value }) => setSelectedBranch(value);
 
   const handleChangeDate = ({ date }) => setSelectedDate(date);
 
+  // Handlers - Table
   const handleClickRow = (row) => {
     if (!selectedBranch.length) return;
 
@@ -157,6 +167,7 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
     window.open(selectedShowLink);
   };
 
+  // Handlers - Map
   const handleMapToggleHover = ({ map }, cursor) => Object.assign(map._canvas.style, { cursor });
 
   const handleMapCinemaClick = (cinema) => {
