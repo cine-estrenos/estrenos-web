@@ -20,11 +20,6 @@ exports.createPages = async function({ actions, graphql }) {
             id
             slug
           }
-          cinemas {
-            id
-            name
-            chain
-          }
         }
       }
     `);
@@ -33,7 +28,8 @@ exports.createPages = async function({ actions, graphql }) {
       console.error('Result errors in createPage', results.errors);
     }
 
-    const { movies, cinemas } = results.data.estrenos;
+    const { movies } = results.data.estrenos;
+    const cinemas = await got(`${GATSBY_API_URL}/cinemas`).json();
 
     for await (const edge of movies) {
       const { id, slug } = edge;
@@ -53,5 +49,20 @@ exports.createPages = async function({ actions, graphql }) {
     createRedirect({ fromPath: '/peliculas', toPath: '/', isPermanent: true });
   } catch (error) {
     console.error('Error in static page creation', error);
+  }
+};
+
+exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
+  if (stage === 'build-html') {
+    actions.setWebpackConfig({
+      module: {
+        rules: [
+          {
+            test: /mapbox-gl/,
+            use: loaders.null(),
+          },
+        ],
+      },
+    });
   }
 };

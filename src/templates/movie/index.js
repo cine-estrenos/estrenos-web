@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-import { H2, Label2, Paragraph2 } from 'baseui/typography';
+import { Layer, Feature, Popup } from 'react-mapbox-gl';
+import { H2, Label1, Label2, Paragraph2 } from 'baseui/typography';
 import { StyledTable, StyledBody, StyledCell } from 'baseui/table';
 
 import dayjs from 'dayjs';
@@ -24,10 +25,12 @@ import {
   TimeCell,
   FormatHeadCell,
   FormatCell,
+  StyledPopup,
 } from './styled';
 
 // Components
 import SEO from 'components/ui/Seo';
+import Map from 'components/ui/Map';
 import Layout from 'components/ui/Layout';
 import BackTo from 'components/ui/BackTo';
 import Select from 'components/ui/Select';
@@ -44,19 +47,26 @@ import { getChainIds, getAvailableCinemas, getChainsNames, getAvailableBranches 
 // Setup dayjs locale
 dayjs.locale('es');
 
+// Constants
+const defaultMapPosition = [-58.4515826, -34.6076124];
+
 const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
-  // React hooks
+  // React hooks - cinemas
   const [selectedCinema, setSelectedCinema] = useState([]);
   const [selectedBranch, setSelectedBranch] = useState([]);
 
+  // React hooks - dates
   const [selectedDate, setSelectedDate] = useState(null);
   const [includeDates, setIncludeDates] = useState([]);
 
+  // React hooks - shows
+  const [showsToFilter, setShowsToFilter] = useState(shows);
   const [selectedShowId, setSelectedShowId] = useState(null);
   const [selectedShowLink, setSelectedShowLink] = useState(null);
   const [selectedShowSeats, setSelectedShowSeats] = useState(null);
 
-  const [showsToFilter, setShowsToFilter] = useState(shows);
+  // React hooks - maps
+  const [mapCenter, setMapCenter] = useState(defaultMapPosition);
 
   // Constants
   const chainIds = getChainIds(cinemas);
@@ -75,7 +85,7 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
     show.seats,
   ]);
 
-  // Effects
+  // Effects - Change shows to display when cinema branch changes or a date it's selected
   useEffect(() => {
     if (selectedCinema.length && !selectedBranch.length) {
       const selectedChain = selectedCinema[0].chain;
@@ -100,6 +110,15 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
     }
   }, [selectedCinema, selectedBranch, selectedDate]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Effects - Change map center when branch changes
+  useEffect(() => {
+    if (!selectedBranch.length) return;
+
+    const [{ lat, lon }] = selectedBranch;
+    setMapCenter([lon, lat]);
+  }, [selectedBranch]);
+
+  // Effects - Clear selected show when there's no date, cinema or branch selected
   useEffect(() => {
     if (!selectedDate || !selectedCinema.length || !selectedBranch.length) {
       setSelectedShowId(null);
@@ -112,16 +131,24 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
     }
   }, [selectedDate, selectedBranch, selectedCinema]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Handlers
-  const handleChangeCinema = ({ value }) => {
+  // Effects - Clear selected branch when a cinema changes
+  useEffect(() => {
     setSelectedBranch([]);
-    setSelectedCinema(value);
-  };
+  }, [selectedCinema]);
+
+  // Effects - Clear selected data when a cinema or branch changes
+  useEffect(() => {
+    setSelectedDate(null);
+  }, [selectedCinema, selectedBranch]);
+
+  // Handlers - Dropdowns
+  const handleChangeCinema = ({ value }) => setSelectedCinema(value);
 
   const handleChangeBranch = ({ value }) => setSelectedBranch(value);
 
   const handleChangeDate = ({ date }) => setSelectedDate(date);
 
+  // Handlers - Table
   const handleClickRow = (row) => {
     if (!selectedBranch.length) return;
 
@@ -140,6 +167,17 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
     window.open(selectedShowLink);
   };
 
+  // Handlers - Map
+  const handleMapToggleHover = ({ map }, cursor) => Object.assign(map._canvas.style, { cursor });
+
+  const handleMapCinemaClick = (cinema) => {
+    const newSelectedCinema = [{ chain: cinema.chain }];
+    const newSelectedBranch = [cinema];
+
+    handleChangeCinema({ value: newSelectedCinema });
+    handleChangeBranch({ value: newSelectedBranch });
+  };
+
   return (
     <Layout>
       <SEO title={movie.title} />
@@ -147,7 +185,7 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
 
       <Container>
         <div>
-          <Poster src={movie.poster.replace('300', '500')} />
+          <Poster alt={movie.title} src={movie.poster.replace('300', '500')} />
         </div>
 
         <div>
@@ -236,7 +274,7 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
                   {DATA.map((row, index) => (
                     <TableRow
                       key={index}
-                      selectable={Boolean(selectedBranch.length)}
+                      selectable={selectedBranch.length ? 'true' : ''}
                       selected={selectedShowId === row[5]}
                       onClick={() => handleClickRow(row)}
                     >
@@ -263,48 +301,50 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
             )}
           </Footer>
         </div>
+
+        <div className="map-container">
+          <Label1 className="label">Mapa</Label1>
+          <Paragraph2 className="description">También podes elegir tu cine desde el mapa:</Paragraph2>
+
+          {Map && (
+            <Map
+              center={mapCenter}
+              containerStyle={{ width: '100%', height: '100%' }}
+              style="mapbox://styles/mapbox/streets-v9" // eslint-disable-line react/style-prop-object
+              zoom={[12]}
+            >
+              <Layer id="marker" layout={{ 'icon-image': 'marker-15', 'icon-size': 2 }} type="symbol">
+                {availableCinemas.map((availableCinema) => {
+                  return (
+                    <Feature
+                      key={availableCinema.id}
+                      coordinates={[availableCinema.lon, availableCinema.lat]}
+                      onClick={() => handleMapCinemaClick(availableCinema)}
+                      onMouseEnter={(mapBox) => handleMapToggleHover(mapBox, 'pointer')}
+                      onMouseLeave={(mapBox) => handleMapToggleHover(mapBox, '')}
+                    />
+                  );
+                })}
+              </Layer>
+              {selectedBranch.length && (
+                <Popup key={selectedBranch[0].id} coordinates={[selectedBranch[0].lon, selectedBranch[0].lat]}>
+                  <StyledPopup>
+                    <h3>
+                      {selectedBranch[0].chain} {selectedBranch[0].name}
+                    </h3>
+                    <p>
+                      Funciones desde el {dayjs(showsToFilter[0].date).format('DD[/]MM')} hasta el{' '}
+                      {dayjs(showsToFilter[showsToFilter.length - 1].date).format('DD[/]MM')}
+                    </p>
+                  </StyledPopup>
+                </Popup>
+              )}
+            </Map>
+          )}
+        </div>
       </Container>
     </Layout>
   );
 };
-
-/*
-export const query = graphql`
-  query($id: String!) {
-    estrenos {
-      movie(id: $id) {
-        id
-        title
-        minAge
-        votes
-        length
-        poster
-        description
-        cast {
-          actors
-          directors
-        }
-        genres {
-          emoji
-          value
-        }
-      }
-      shows(movieId: $id) {
-        id
-        time
-        date
-        link
-        format
-        version
-        cinemaId
-        seats {
-          total
-          available
-        }
-      }
-    }
-  }
-`;
-*/
 
 export default Movie;
