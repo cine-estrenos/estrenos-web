@@ -13,6 +13,7 @@ export const Container = styled.nav`
   @media ${media.tablet} {
     align-items: center;
     flex-direction: row;
+    justify-content: space-between;
   }
 
   h1 {
@@ -27,25 +28,23 @@ export const Container = styled.nav`
   }
 
   .links-search {
-    display: grid;
-    grid-auto-flow: row;
-    align-items: center;
-    grid-gap: ${rem('16px')};
-
     @media ${media.tablet} {
-      grid-auto-flow: column;
-      grid-gap: ${rem('32px')};
-      grid-template-columns: auto ${rem('230px')};
     }
 
-    ul {
-      display: grid;
-      grid-auto-flow: row;
+    span {
+      cursor: pointer;
+    }
+  }
 
-      @media ${media.tablet} {
-        grid-auto-flow: column;
-        grid-gap: ${rem('32px')};
-      }
+  .user-actions {
+    display: flex;
+    align-items: center;
+
+    flex-basis: ${rem('280px')};
+
+    > div {
+      flex-basis: ${rem('240px')};
+      margin-right: ${rem('16px')};
     }
   }
 `;

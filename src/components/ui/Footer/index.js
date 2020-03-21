@@ -15,9 +15,6 @@ const Footer = () => (
     <div className="links-media">
       <ul>
         <li>
-          <Label2>Contacto</Label2>
-        </li>
-        <li>
           <Label2>Política de Privacidad</Label2>
         </li>
         <li>

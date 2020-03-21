@@ -8,7 +8,7 @@ import Billboard from 'components/Billboard';
 
 const HomePage = () => (
   <Layout>
-    <SEO title="Home" />
+    <SEO title="Inicio" />
     <Header />
     <Billboard />
   </Layout>

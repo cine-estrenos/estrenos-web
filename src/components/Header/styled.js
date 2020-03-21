@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { rem } from 'polished';
+import { rgba, rem } from 'polished';
 
 // Styles
 import { media } from 'utils/styles/media';
@@ -11,7 +11,7 @@ export const Container = styled.header`
 
   @media ${media.desktop} {
     grid-gap: ${rem('100px')};
-    grid-template-rows: ${rem('400px')};
+    grid-template-rows: ${rem('428px')};
     grid-template-columns: ${rem('400px')} 1fr;
   }
 
@@ -55,6 +55,14 @@ export const Container = styled.header`
       button {
         flex: 1;
       }
+    }
+  }
+
+  figure {
+    .plyr {
+      border-radius: 4px;
+      transition: all 400ms ease;
+      box-shadow: 0 2px 15px ${({ theme }) => rgba(theme.text, 0.1)};
     }
   }
 `;
