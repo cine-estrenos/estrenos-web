@@ -1,17 +1,8 @@
 import firebase from 'gatsby-plugin-firebase';
 
-import 'firebase/auth';
-import 'firebase/firestore';
+import { getFirebaseCredentials } from './credentials';
 
-const {
-  GATSBY_FIREBASE_API_KEY,
-  GATSBY_FIREBASE_AUTH_DOMAIN,
-  GATSBY_FIREBASE_DATABASE_URL,
-  GATSBY_FIREBASE_PROJECT_ID,
-  GATSBY_FIREBASE_STORAGE_BUCKET,
-  GATSBY_FIREBASE_MESSAGING_SENDER_ID,
-  GATSBY_FIREBASE_APP_ID,
-} = process.env;
+const credentials = getFirebaseCredentials();
 
 export default new Proxy(
   {
@@ -28,19 +19,8 @@ export default new Proxy(
     },
   },
   {
-    get: function(target, name) {
-      if (!firebase.apps.length) {
-        firebase.initializeApp({
-          apiKey: GATSBY_FIREBASE_API_KEY,
-          authDomain: GATSBY_FIREBASE_AUTH_DOMAIN,
-          databaseURL: GATSBY_FIREBASE_DATABASE_URL,
-          projectId: GATSBY_FIREBASE_PROJECT_ID,
-          storageBucket: GATSBY_FIREBASE_STORAGE_BUCKET,
-          messagingSenderId: GATSBY_FIREBASE_MESSAGING_SENDER_ID,
-          appId: GATSBY_FIREBASE_APP_ID,
-        });
-      }
-
+    get: (target, name) => {
+      if (!firebase.apps.length) firebase.initializeApp(credentials);
       return target[name];
     },
   },

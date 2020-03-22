@@ -1,3 +1,6 @@
-import 'plyr/dist/plyr.css';
+// Firebase
+import 'firebase/auth';
+import 'firebase/firestore';
 
-// export { wrapRootElement } from './src/utils/apollo/wrapper';
+// Plyr styles
+import 'plyr/dist/plyr.css';

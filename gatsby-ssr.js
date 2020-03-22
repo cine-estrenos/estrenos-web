@@ -1,1 +1,2 @@
-// export { wrapRootElement } from './src/utils/apollo/wrapper';
+import 'firebase/auth';
+import 'firebase/firestore';
