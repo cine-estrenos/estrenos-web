@@ -109,6 +109,7 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
 
   // Constants - Social
   const movieUrl = delve(window, 'location.href', '');
+  const iconProps = { round: true, size: 32 };
 
   // Effects - Change shows to display when cinema branch changes or a date it's selected
   useEffect(() => {
@@ -223,7 +224,7 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
           <div className="poster-footer">
             <Text>Compartí esta película en: </Text>
             <FacebookShareButton hastag="TeInvitoAlCine" quote={`Vamos a ver "${movie.title}"?`} url={movieUrl}>
-              <FacebookIcon round={true} size={32} />
+              <FacebookIcon {...iconProps} />
             </FacebookShareButton>
             <TwitterShareButton
               hastags={['TeInvitoAlCine', 'Estrenos']}
@@ -232,13 +233,13 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
               url={movieUrl}
               via={'estrenos'}
             >
-              <TwitterIcon round={true} size={32} />
+              <TwitterIcon {...iconProps} />
             </TwitterShareButton>
             <WhatsappShareButton title={`Vamos a ver "${movie.title}"?`} url={movieUrl}>
-              <WhatsappIcon round={true} size={32} />
+              <WhatsappIcon {...iconProps} />
             </WhatsappShareButton>
             <TelegramShareButton title={`Vamos a ver "${movie.title}"?`} url={movieUrl}>
-              <TelegramIcon round={true} size={32} />
+              <TelegramIcon {...iconProps} />
             </TelegramShareButton>
           </div>
         </div>
