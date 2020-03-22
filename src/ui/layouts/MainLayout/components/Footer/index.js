@@ -25,10 +25,10 @@ const Footer = () => (
       </ul>
 
       <div className="media">
-        <a href="https://twitter.com/cine-estrenos" rel="noreferrer noopener">
+        <a href="https://twitter.com/cine-estrenos" rel="noreferrer noopener" target="_blank">
           <TwitterCircleFilled className="github" />
         </a>
-        <a href="https://github.com/cine-estrenos" rel="noreferrer noopener">
+        <a href="https://github.com/cine-estrenos" rel="noreferrer noopener" target="_blank">
           <GithubFilled className="github" />
         </a>
       </div>
