@@ -1,14 +1,16 @@
 const got = require('got');
 const path = require('path');
 const dotenv = require('dotenv');
+const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin');
 
 // Dotenv
 dotenv.config();
 
 // Constants
 const { GATSBY_API_URL } = process.env;
-const movieTemplate = path.resolve(`src/templates/movie/index.js`);
+const movieTemplate = path.resolve(`src/modules/movie/pages/Movie.js`);
 
+// Dynamic pages
 exports.createPages = async function({ actions, graphql }) {
   const { createPage, createRedirect } = actions;
 
@@ -52,17 +54,12 @@ exports.createPages = async function({ actions, graphql }) {
   }
 };
 
+// Webpack
 exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
-  if (stage === 'build-html') {
-    actions.setWebpackConfig({
-      module: {
-        rules: [
-          {
-            test: /mapbox-gl/,
-            use: loaders.null(),
-          },
-        ],
-      },
-    });
-  }
+  actions.setWebpackConfig({
+    module: {
+      rules: stage === 'build-html' ? [{ test: /mapbox-gl/, use: loaders.null() }] : [],
+    },
+    plugins: [new AntdDayjsWebpackPlugin()],
+  });
 };

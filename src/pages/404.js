@@ -1,18 +1,19 @@
 import React from 'react';
-import { H2, Paragraph2 } from 'baseui/typography';
+import { Typography } from 'antd';
 
 // Components
-import SEO from 'components/ui/Seo';
-import Layout from 'components/ui/Layout';
-import BackTo from 'components/ui/BackTo';
+import BackTo from 'ui/components/BackTo';
+import MainLayout from 'ui/layouts/MainLayout';
+
+// Constants
+const { Title, Paragraph } = Typography;
 
 const NotFoundPage = () => (
-  <Layout>
-    <SEO title="Ruta no encontrada" />
-    <H2>Lo lamentamos</H2>
-    <Paragraph2>Llegate a una ruta inexistente...</Paragraph2>
+  <MainLayout title="Ruta no encontrada">
+    <Title level={2}>Lo lamentamos</Title>
+    <Paragraph>Llegate a una ruta inexistente...</Paragraph>
     <BackTo route="/">Volver a todas las películas</BackTo>
-  </Layout>
+  </MainLayout>
 );
 
 export default NotFoundPage;

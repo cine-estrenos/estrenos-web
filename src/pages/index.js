@@ -1,17 +1,8 @@
 import React from 'react';
 
 // Components
-import SEO from 'components/ui/Seo';
-import Layout from 'components/ui/Layout';
-import Header from 'components/Header';
-import Billboard from 'components/Billboard';
+import MoviesPage from 'modules/movies/pages/Movies';
 
-const HomePage = () => (
-  <Layout>
-    <SEO title="Inicio" />
-    <Header />
-    <Billboard />
-  </Layout>
-);
+const HomePage = () => <MoviesPage />;
 
 export default HomePage;
