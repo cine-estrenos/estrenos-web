@@ -290,6 +290,7 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
               <DatePicker
                 clearable
                 // disabled={!Boolean(selectedBranch)}
+                defaultPickerValue={dayjs().month(dayjs(delve(shows, '0.date')).month())}
                 disabledDate={handleDisableDate}
                 includeDates={includeDates}
                 placeholder="Fecha"
