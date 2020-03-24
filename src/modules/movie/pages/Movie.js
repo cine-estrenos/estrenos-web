@@ -49,8 +49,7 @@ const { Option } = Select;
 const { Title, Text, Paragraph } = Typography;
 const defaultMapPosition = [-58.4515826, -34.6076124];
 
-const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
-  console.log('Movie -> movie', movie);
+const Movie = ({ pageContext: { cinemas, movie, shows }, location: { href } }) => {
   // React hooks - cinemas
   const [selectedCinema, setSelectedCinema] = useState(undefined);
   const [selectedBranch, setSelectedBranch] = useState(undefined);
@@ -108,7 +107,6 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
   const tableData = showsToFilter.map((show) => ({ ...show, date: parseDate(show.date), key: show.id }));
 
   // Constants - Social
-  const movieUrl = delve(window, 'location.href', '');
   const iconProps = { round: true, size: 32 };
 
   // Effects - Change shows to display when cinema branch changes or a date it's selected
@@ -223,22 +221,22 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
           <Poster alt={movie.title} src={movie.poster.replace('300', '500')} />
           <div className="poster-footer">
             <Text>Compartí esta película en: </Text>
-            <FacebookShareButton hastag="TeInvitoAlCine" quote={`Vamos a ver "${movie.title}"?`} url={movieUrl}>
+            <FacebookShareButton hastag="TeInvitoAlCine" quote={`Vamos a ver "${movie.title}"?`} url={href}>
               <FacebookIcon {...iconProps} />
             </FacebookShareButton>
             <TwitterShareButton
               hastags={['TeInvitoAlCine', 'Estrenos']}
               related={['estrenos']}
               title={`Vamos a ver "${movie.title}"?`}
-              url={movieUrl}
+              url={href}
               via={'estrenos'}
             >
               <TwitterIcon {...iconProps} />
             </TwitterShareButton>
-            <WhatsappShareButton title={`Vamos a ver "${movie.title}"?`} url={movieUrl}>
+            <WhatsappShareButton title={`Vamos a ver "${movie.title}"?`} url={href}>
               <WhatsappIcon {...iconProps} />
             </WhatsappShareButton>
-            <TelegramShareButton title={`Vamos a ver "${movie.title}"?`} url={movieUrl}>
+            <TelegramShareButton title={`Vamos a ver "${movie.title}"?`} url={href}>
               <TelegramIcon {...iconProps} />
             </TelegramShareButton>
           </div>
