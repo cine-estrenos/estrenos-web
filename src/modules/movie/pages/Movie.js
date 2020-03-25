@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Layer, Feature, Popup } from 'react-mapbox-gl';
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  TwitterShareButton,
+  TwitterIcon,
+  WhatsappShareButton,
+  WhatsappIcon,
+  TelegramShareButton,
+  TelegramIcon,
+} from 'react-share';
 
 // Antd
 import { Typography, Select, DatePicker, Button, Table } from 'antd';
@@ -39,7 +49,7 @@ const { Option } = Select;
 const { Title, Text, Paragraph } = Typography;
 const defaultMapPosition = [-58.4515826, -34.6076124];
 
-const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
+const Movie = ({ pageContext: { cinemas, movie, shows }, location: { href } }) => {
   // React hooks - cinemas
   const [selectedCinema, setSelectedCinema] = useState(undefined);
   const [selectedBranch, setSelectedBranch] = useState(undefined);
@@ -67,7 +77,7 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
   const chains = getChainsNames(availableCinemas);
   const branches = getAvailableBranches(selectedCinema, availableCinemas);
 
-  //   Constants - Table
+  // Constants - Table
   const tableColumns = [
     {
       key: 'date',
@@ -95,6 +105,9 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
     },
   ];
   const tableData = showsToFilter.map((show) => ({ ...show, date: parseDate(show.date), key: show.id }));
+
+  // Constants - Social
+  const iconProps = { round: true, size: 32 };
 
   // Effects - Change shows to display when cinema branch changes or a date it's selected
   useEffect(() => {
@@ -204,8 +217,29 @@ const Movie = ({ pageContext: { cinemas, movie, shows } }) => {
       <BackTo route="/">Volver al inicio</BackTo>
 
       <Container>
-        <div>
+        <div className="poster-container">
           <Poster alt={movie.title} src={movie.poster.replace('300', '500')} />
+          <div className="poster-footer">
+            <Text>Compartí esta película en: </Text>
+            <FacebookShareButton hastag="TeInvitoAlCine" quote={`Vamos a ver "${movie.title}"?`} url={href}>
+              <FacebookIcon {...iconProps} />
+            </FacebookShareButton>
+            <TwitterShareButton
+              hastags={['TeInvitoAlCine', 'Estrenos']}
+              related={['estrenos']}
+              title={`Vamos a ver "${movie.title}"?`}
+              url={href}
+              via={'estrenos'}
+            >
+              <TwitterIcon {...iconProps} />
+            </TwitterShareButton>
+            <WhatsappShareButton title={`Vamos a ver "${movie.title}"?`} url={href}>
+              <WhatsappIcon {...iconProps} />
+            </WhatsappShareButton>
+            <TelegramShareButton title={`Vamos a ver "${movie.title}"?`} url={href}>
+              <TelegramIcon {...iconProps} />
+            </TelegramShareButton>
+          </div>
         </div>
 
         <div>

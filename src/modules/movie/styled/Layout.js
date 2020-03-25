@@ -14,6 +14,18 @@ export const Container = styled.div`
     grid-template-columns: ${rem('500px')} 1fr;
   }
 
+  .poster-container {
+    .poster-footer {
+      display: flex;
+      align-items: center;
+      padding: ${rem('12px')} 0;
+
+      button {
+        margin-left: ${rem('12px')};
+      }
+    }
+  }
+
   .main {
     max-width: ${rem('440px')};
   }
@@ -36,9 +48,8 @@ export const Container = styled.div`
     grid-template-columns: repeat(2, minmax(${rem('120px')}, auto));
 
     @media ${media.tablet} {
-      grid-row-gap: ${rem('28px')};
+      grid-row-gap: ${rem('12px')};
       grid-column-gap: ${rem('65px')};
-      margin-bottom: ${rem('38px')};
     }
 
     .info-title {
