@@ -33,6 +33,7 @@ import GenreRating from 'ui/components/GenreRating';
 
 // Module components
 import Map from 'modules/movie/components/Map';
+import Imdb from 'modules/movie/components/Imdb';
 
 // Utils
 import { parseDate } from 'modules/movie/utils/dates';
@@ -220,25 +221,32 @@ const Movie = ({ pageContext: { cinemas, movie, shows }, location: { href } }) =
         <div className="poster-container">
           <Poster alt={movie.title} src={movie.poster.replace('300', '500')} />
           <div className="poster-footer">
-            <Text>Compartí esta película en: </Text>
-            <FacebookShareButton hastag="TeInvitoAlCine" quote={`Vamos a ver "${movie.title}"?`} url={href}>
-              <FacebookIcon {...iconProps} />
-            </FacebookShareButton>
-            <TwitterShareButton
-              hastags={['TeInvitoAlCine', 'Estrenos']}
-              related={['estrenos']}
-              title={`Vamos a ver "${movie.title}"?`}
-              url={href}
-              via={'estrenos'}
-            >
-              <TwitterIcon {...iconProps} />
-            </TwitterShareButton>
-            <WhatsappShareButton title={`Vamos a ver "${movie.title}"?`} url={href}>
-              <WhatsappIcon {...iconProps} />
-            </WhatsappShareButton>
-            <TelegramShareButton title={`Vamos a ver "${movie.title}"?`} url={href}>
-              <TelegramIcon {...iconProps} />
-            </TelegramShareButton>
+            <div className="social-container">
+              <Text>Compartí esta película en</Text>
+              <FacebookShareButton hastag="TeInvitoAlCine" quote={`Vamos a ver "${movie.title}"?`} url={href}>
+                <FacebookIcon {...iconProps} />
+              </FacebookShareButton>
+              <TwitterShareButton
+                hastags={['TeInvitoAlCine', 'Estrenos']}
+                related={['estrenos']}
+                title={`Vamos a ver "${movie.title}"?`}
+                url={href}
+                via={'estrenos'}
+              >
+                <TwitterIcon {...iconProps} />
+              </TwitterShareButton>
+              <WhatsappShareButton title={`Vamos a ver "${movie.title}"?`} url={href}>
+                <WhatsappIcon {...iconProps} />
+              </WhatsappShareButton>
+              <TelegramShareButton title={`Vamos a ver "${movie.title}"?`} url={href}>
+                <TelegramIcon {...iconProps} />
+              </TelegramShareButton>
+            </div>
+
+            <div className="movie-container">
+              <Text>Ver más información en</Text>
+              <Imdb id={movie.imdbId} />
+            </div>
           </div>
         </div>
 

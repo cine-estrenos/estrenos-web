@@ -16,12 +16,19 @@ export const Container = styled.div`
 
   .poster-container {
     .poster-footer {
-      display: flex;
-      align-items: center;
-      padding: ${rem('12px')} 0;
-
       button {
         margin-left: ${rem('12px')};
+      }
+
+      .social-container,
+      .movie-container {
+        display: flex;
+        align-items: center;
+        padding: ${rem('6px')} 0;
+      }
+
+      .movie-container span {
+        margin-right: ${rem('12px')};
       }
     }
   }
@@ -95,6 +102,7 @@ export const Body = styled.div`
 
 export const Poster = styled.img`
   border-radius: 2px;
+  margin-bottom: 12px;
 `;
 
 export const Footer = styled.div`
