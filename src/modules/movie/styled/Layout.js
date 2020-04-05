@@ -92,7 +92,7 @@ export const Header = styled.div`
   margin: ${rem('20px')} 0;
 
   @media ${media.tablet} {
-    grid-template-columns: ${rem('210px')};
+    grid-template-columns: ${rem('440px')};
   }
 `;
 

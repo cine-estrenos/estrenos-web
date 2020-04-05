@@ -12,7 +12,7 @@ import {
 } from 'react-share';
 
 // Antd
-import { Typography, Select, DatePicker, Button, Table } from 'antd';
+import { Typography, Select, DatePicker, Button, Table, Radio } from 'antd';
 
 // Gatsby
 // import { trackCustomEvent } from 'gatsby-plugin-google-analytics';
@@ -39,7 +39,12 @@ import Imdb from 'modules/movie/components/Imdb';
 import { parseDate } from 'modules/movie/utils/dates';
 
 // Selectors
-import { getChainIds, getAvailableCinemas, getChainsNames, getAvailableBranches } from 'modules/movie/utils/selectors';
+import {
+  getChainIds,
+  getAvailableCinemas,
+  getAvailableChains,
+  getAvailableBranches,
+} from 'modules/movie/utils/selectors';
 
 // Setup dayjs
 dayjs.locale('es');
@@ -75,7 +80,7 @@ const Movie = ({ pageContext: { cinemas, movie, shows }, location: { href } }) =
   const chainIds = getChainIds(cinemas);
   const availableCinemas = getAvailableCinemas(cinemas, shows);
 
-  const chains = getChainsNames(availableCinemas);
+  const availableChains = getAvailableChains(cinemas, shows);
   const branches = getAvailableBranches(selectedCinema, availableCinemas);
 
   // Constants - Table
@@ -164,9 +169,12 @@ const Movie = ({ pageContext: { cinemas, movie, shows }, location: { href } }) =
   }, [selectedCinema, selectedBranch]);
 
   // Handlers - Dropdowns
-  const handleChangeCinema = (value) => setSelectedCinema(value);
+  const handleChangeCinema = ({ target }) => setSelectedCinema(target.value);
 
-  const handleChangeBranch = (value) => setSelectedBranch(value);
+  const handleChangeBranch = (branchId) => {
+    const branch = branches.find(({ id }) => branchId === id);
+    setSelectedBranch(branch);
+  };
 
   const handleChangeDate = (date) => setSelectedDate(date);
 
@@ -298,13 +306,13 @@ const Movie = ({ pageContext: { cinemas, movie, shows }, location: { href } }) =
               <Paragraph strong className="label">
                 Selecciona tu cine
               </Paragraph>
-              <Select placeholder={chains[0]} size="large" value={selectedCinema} onChange={handleChangeCinema}>
-                {chains.map((chain) => (
-                  <Option key={chain} value={chain}>
+              <Radio.Group buttonStyle="solid" size="large" onChange={handleChangeCinema}>
+                {availableChains.map(({ chain, isDisabled }) => (
+                  <Radio.Button key={chain} disabled={isDisabled} value={chain}>
                     {chain}
-                  </Option>
+                  </Radio.Button>
                 ))}
-              </Select>
+              </Radio.Group>
             </div>
 
             <div>
@@ -312,9 +320,11 @@ const Movie = ({ pageContext: { cinemas, movie, shows }, location: { href } }) =
                 Selecciona tu sucursal
               </Paragraph>
               <Select
+                className="branch-select"
+                disabled={!selectedCinema}
                 placeholder={delve(branches, '[0].name', 'Belgrano')}
                 size="large"
-                value={selectedBranch}
+                value={delve(selectedBranch, 'id')}
                 onChange={handleChangeBranch}
               >
                 {branches.map(({ id, name }) => (
@@ -331,8 +341,8 @@ const Movie = ({ pageContext: { cinemas, movie, shows }, location: { href } }) =
               </Paragraph>
               <DatePicker
                 clearable
-                // disabled={!Boolean(selectedBranch)}
                 defaultPickerValue={dayjs().month(dayjs(delve(shows, '0.date')).month())}
+                disabled={!selectedBranch}
                 disabledDate={handleDisableDate}
                 includeDates={includeDates}
                 placeholder="Fecha"
