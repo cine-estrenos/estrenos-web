@@ -6,3 +6,7 @@
   <img src="https://img.shields.io/github/issues/cine-estrenos/estrenos-web?style=for-the-badge">
   <img src="https://img.shields.io/github/issues-pr/cine-estrenos/estrenos-web?style=for-the-badge">
 </div>
+
+# Environment files
+
+You'll need a .env and a .env.development files from .env.template
